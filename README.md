@@ -66,3 +66,7 @@ Création de la base phytokiller :
     sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     rm -rf composer-setup.php
     sudo composer self-update
+    
+#### Node & NPM
+
+    sudo apt-get install nodejs npm
