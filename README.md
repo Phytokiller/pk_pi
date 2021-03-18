@@ -51,3 +51,11 @@ L'utilisateur sera `root` et le mot de passe sera `Phyt0K!ller`
 Si besoin de se connecter à la base :
 
     mysql --user=root --password=Phyt0K!ller
+
+#### Composer
+
+    cd
+    wget -O composer-setup.php https://getcomposer.org/installer
+    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    rm -rf composer-setup.php
+    sudo composer self-update
