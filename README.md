@@ -1,6 +1,11 @@
 # raspberry
 
-## Touch screen
+## Configuration
+
+### SSH
+
+
+### Touch screen
 
 Afin d'utiliser le port USB-C pour le touch screen, ajouter la ligne suivante à la fin du fichier /boot/config.txt
 
