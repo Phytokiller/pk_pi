@@ -26,13 +26,17 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 
 #### Apache
 
-        sudo apt update
-        sudo apt upgrade
-        sudo apt update
-        sudo apt install apache2
-        sudo chown -R pi:www-data /var/www/html/
-        sudo chmod -R 770 /var/www/html/
+    sudo apt update
+    sudo apt upgrade
+    sudo apt update
+    sudo apt install apache2
+    sudo chown -R pi:www-data /var/www/html/
+    sudo chmod -R 770 /var/www/html/
         
 #### PHP
 
-        sudo apt install php php-mbstring
+    sudo apt install php php-mbstring
+
+#### MySQL
+
+    sudo apt install mariadb-server php-mysql
