@@ -22,6 +22,10 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 
 ## Installation
 
+### Vim
+
+    sudo apt install vim
+
 ### Webserver
 
 #### Apache
