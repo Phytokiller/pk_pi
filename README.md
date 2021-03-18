@@ -57,6 +57,7 @@ Création de la base phytokiller :
 
     mysql --user=root --password='Phyt0K!ller'
     CREATE DATABASE phytokiller;
+    exit
 
 #### Composer
 
