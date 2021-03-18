@@ -18,3 +18,21 @@ Afin d'utiliser le port USB-C pour le touch screen, ajouter la ligne suivante à
     dtoverlay=dwc2,dr_mode=host
     
 Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via les ports GPIO.
+
+
+## Installation
+
+### Webserver
+
+#### Apache
+
+        sudo apt update
+        sudo apt upgrade
+        sudo apt update
+        sudo apt install apache2
+        sudo chown -R pi:www-data /var/www/html/
+        sudo chmod -R 770 /var/www/html/
+        
+#### PHP
+
+        sudo apt install php php-mbstring
