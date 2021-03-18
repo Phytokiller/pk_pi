@@ -39,4 +39,11 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 
 #### MySQL
 
+L'utilisateur sera `root` et le mot de passe sera `Phyt0K!ller`
+
     sudo apt install mariadb-server php-mysql
+
+    sudo mysql --user=root
+    DROP USER 'root'@'localhost';
+    CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';
+    GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
