@@ -4,6 +4,12 @@
 
 ### SSH
 
+Enter `sudo raspi-config` in a terminal window.
+Select Interfacing Options.
+Navigate to and select SSH.
+Choose Yes.
+Select Ok.
+Choose Finish.
 
 ### Touch screen
 
