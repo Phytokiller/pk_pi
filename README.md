@@ -19,6 +19,20 @@ Afin d'utiliser le port USB-C pour le touch screen, ajouter la ligne suivante à
     
 Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via les ports GPIO.
 
+### Hosts file (/etc/hosts)
+
+    sudo vi /etc/hosts
+    
+The hosts file should look like this :
+
+    127.0.0.1       localhost
+    127.0.0.1       dashboard.lan
+    127.0.0.1       touch.lan
+    ::1             localhost ip6-localhost ip6-loopback
+    ff02::1         ip6-allnodes
+    ff02::2         ip6-allrouters
+
+    127.0.1.1       tec
 
 ## Installation
 
