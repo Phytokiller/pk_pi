@@ -26,7 +26,6 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 The hosts file should look like this :
 
     127.0.0.1       localhost
-    127.0.0.1       dashboard.lan
     127.0.0.1       touch.lan
     ::1             localhost ip6-localhost ip6-loopback
     ff02::1         ip6-allnodes
