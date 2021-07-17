@@ -11,6 +11,14 @@
 5. Select Ok.
 6. Choose Finish.
 
+### VNC VIEWER
+
+Pour utiliser VNC sans avoir à brancher un écran physique sur la pi :
+1. sudo raspi-config
+2. Display Options
+3. D1 Resolution
+5. DMT Mode 82 1920x1080 60Hz 16:9
+
 ### Touch screen
 
 Afin d'utiliser le port USB-C pour le touch screen, ajouter la ligne suivante à la fin du fichier /boot/config.txt
