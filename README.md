@@ -82,4 +82,4 @@ Zend Engine v4.0.11, Copyright (c) Zend Technologies
     
 #### Node & NPM
 
-    curl -qL https://www.npmjs.com/install.sh | sh
+    sudo apt install nodejs -y
