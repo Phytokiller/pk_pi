@@ -52,8 +52,7 @@ sudo apt install vim
 
 #### NGINX & PHP
 ```
-sudo apt-get install nginx
-sudo apt install php8.0-fpm
+sudo apt-get install nginx php8.0-fpm -y
 ```
 
 #### Composer
