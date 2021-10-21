@@ -52,6 +52,16 @@ sudo apt install vim
 
 #### NGINX & PHP
 ```
+sudo apt install -y lsb-release apt-transport-https ca-certificates wget
+sysadmin@debian-10:~$ sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+sysadmin@debian-10:~$ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+```
+
+```
+sudo apt-get update
+```
+
+```
 sudo apt-get install nginx php8.0-fpm -y
 ```
 
