@@ -82,6 +82,4 @@ Zend Engine v4.0.11, Copyright (c) Zend Technologies
     
 #### Node & NPM
 
-    wget -qO- https://deb.nodesource.com/setup_14.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-    npm update -g
+    curl -qL https://www.npmjs.com/install.sh | sh
