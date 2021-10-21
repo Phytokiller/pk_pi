@@ -52,9 +52,7 @@ sudo apt install vim
 
 #### NGINX & PHP
 ```
-sudo apt install -y lsb-release apt-transport-https ca-certificates wget
-sysadmin@debian-10:~$ sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-sysadmin@debian-10:~$ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
+sudo apt install -y lsb-release apt-transport-https ca-certificates wget && sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php.list
 ```
 
 ```
@@ -64,6 +62,15 @@ sudo apt-get update
 ```
 sudo apt-get install nginx php8.0-fpm -y
 ```
+
+Tester l'installation :
+```
+php -v
+```
+> PHP 8.0.11 (cli) (built: Sep 23 2021 22:03:11) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v4.0.11, Copyright (c) Zend Technologies
+    with Zend OPcache v8.0.11, Copyright (c), by Zend Technologies
 
 #### Composer
 
