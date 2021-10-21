@@ -1,5 +1,7 @@
 # raspberry
 
+> **ATTENTION**: Les écrans avec pi intégré ont une distribution spéciale ne pas faire mise à jour.
+
 ## Configuration
 
 ### SSH
@@ -19,7 +21,7 @@ Pour utiliser VNC sans avoir à brancher un écran physique sur la pi :
 3. D1 Resolution
 5. DMT Mode 82 1920x1080 60Hz 16:9
 
-### Touch screen
+### Touch screen (valable sur les anciens écrans)
 
 Afin d'utiliser le port USB-C pour le touch screen, ajouter la ligne suivante à la fin du fichier /boot/config.txt
 
@@ -27,19 +29,12 @@ Afin d'utiliser le port USB-C pour le touch screen, ajouter la ligne suivante à
     
 Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via les ports GPIO.
 
-### Hosts file (/etc/hosts)
+### Hostname
 
-    sudo vi /etc/hosts
-    
-The hosts file should look like this :
-
-    127.0.0.1       localhost
-    127.0.0.1       touch.lan
-    ::1             localhost ip6-localhost ip6-loopback
-    ff02::1         ip6-allnodes
-    ff02::2         ip6-allrouters
-
-    127.0.1.1       tec
+1. Enter `sudo raspi-config`.
+2. Select `1. System Options`.
+3. Select `S4 Hostname`
+4. Type `phytokiller`
 
 ## Installation
 
@@ -49,36 +44,11 @@ The hosts file should look like this :
 
 ### Webserver
 
-#### Apache
-
-    sudo apt update
-    sudo apt upgrade
-    sudo apt update
-    sudo apt install apache2
-    sudo chown -R pi:www-data /var/www/html/
-    sudo chmod -R 770 /var/www/html/
-        
-#### PHP
-
-    sudo apt install php php-mbstring
-
-#### MySQL
-
-L'utilisateur sera `root` et le mot de passe sera `Phyt0K!ller`
-
-    sudo apt install mariadb-server php-mysql
-
-    sudo mysql --user=root
-    DROP USER 'root'@'localhost';
-    CREATE USER 'root'@'localhost' IDENTIFIED BY 'Phyt0K!ller';
-    GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
-    exit
-    
-Création de la base phytokiller :
-
-    mysql --user=root --password='Phyt0K!ller'
-    CREATE DATABASE phytokiller;
-    exit
+#### NGINX & PHP
+```
+sudo apt-get install nginx
+sudo apt install php8.0-fpm
+```
 
 #### Composer
 
