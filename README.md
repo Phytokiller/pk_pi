@@ -1,6 +1,6 @@
 # raspberry
 
-> **ATTENTION**: Les écrans avec pi intégré ont une distribution spéciale ne pas faire mise à jour.
+> **ATTENTION**: Les écrans avec pi intégré ont une distribution spéciale ne pas faire de mise à jour.
 
 ## Configuration
 
@@ -38,9 +38,15 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 
 ## Installation
 
-### Vim
+```
+sudo apt-get update
+```
 
-    sudo apt install vim
+### Vim (optional)
+
+```
+sudo apt install vim
+```
 
 ### Webserver
 
