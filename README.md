@@ -1,6 +1,6 @@
 # raspberry
 
-> **ATTENTION**: Les écrans avec pi intégré ont une distribution spéciale ne pas faire de mise à jour.
+> **ATTENTION**: Les écrans Chipsee avec pi intégré ont une distribution spéciale. **Ne pas faire de mise à jour.**
 
 ## Configuration
 
