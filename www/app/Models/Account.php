@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Account extends Model
+{
+
+    use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'name',
+        'bath_number_prefix',
+        'updated_at',
+    ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function palettes()
+    {
+        return $this->hasMany(Palette::class);
+    }
+
+    public function baths()
+    {
+        return $this->hasMany(Bath::class);
+    }
+
+}
