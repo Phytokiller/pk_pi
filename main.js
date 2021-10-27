@@ -9,7 +9,7 @@ app.on('ready', () => {
 })
 
 var phpServer = require('node-php-server');
-const port = 8001, host = '127.0.0.1';
+const port = 5010, host = '127.0.0.1';
 const serverUrl = `http://${host}:${port}`;
 
 

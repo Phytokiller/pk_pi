@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Palette;
 use Illuminate\Http\Request;
 use App\Helpers\PK;
+use Inertia\Inertia;
 
 class WelcomeController extends Controller
 {
@@ -31,9 +32,11 @@ class WelcomeController extends Controller
             'Palettes' => $this->pk->currentAccount()->palettes,
         ];
 
-        dd($debug);
+        //dd($debug);
 
-        return view('welcome', ['pk' => $this->pk]);
+        return Inertia::render('Welcome');
+
+        //return view('welcome', ['pk' => $this->pk]);
     }
 
 }

@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
 
+    private $settings;
+
+    public function __construct()
+    {
+        $this->settings = Setting::find(1);
+    }
+
     /**
      * Update the resource in storage.
      *
@@ -28,10 +35,6 @@ class AccountController extends Controller
             'bath_number_prefix' => $request->bath_number_prefix,
             'updated_at' => Carbon::now(),
         ]);
-
-        $settings = Setting::find(1);
-        $settings->current_account_id = $account->id;
-        $settings->update();
 
         $ids = [];
 
@@ -50,8 +53,22 @@ class AccountController extends Controller
 
         $account->users()->sync($ids);
 
+        $this->settings->account_id = $account->id;
+        $this->settings->user_id = $account->users()->first()->id;
+        $this->settings->update();
+
+
         return $account;
     }
 
+    public function switch($id)
+    {
 
+        $account = Account::find($id);
+        $this->settings->account_id = $account->id;
+        $this->settings->user_id = $account->users()->first()->id;
+        $this->settings->update();
+        return redirect()->back();
+
+    }
 }

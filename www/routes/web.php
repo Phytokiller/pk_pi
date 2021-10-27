@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +19,7 @@ use App\Http\Controllers\WelcomeController;
 */
 
 
-Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+
+Route::put('accounts/{account}/switch', [AccountController::class, 'switch'])->name('accounts.switch');
+Route::put('users/{user}/switch', [UserController::class, 'switch'])->name('users.switch');
