@@ -7,10 +7,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     {{-- Inertia --}}
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=smoothscroll,NodeList.prototype.forEach,Promise,Object.values,Object.assign" defer></script>
 
     {{-- Ping CRM --}}
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script>
 
     <script src="{{ mix('/js/app.js') }}" defer></script>
     

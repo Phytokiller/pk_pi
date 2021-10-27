@@ -34,7 +34,9 @@ class WelcomeController extends Controller
 
         //dd($debug);
 
-        return Inertia::render('Welcome');
+        return Inertia::render('Welcome', [
+            'palettes' => $this->pk->currentAccount()->palettes,
+        ]);
 
         //return view('welcome', ['pk' => $this->pk]);
     }

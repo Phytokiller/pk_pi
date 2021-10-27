@@ -22,19 +22,5 @@
       palettes: Array,
     },
 
-    data() {
-      return {
-        selected: [],
-      }
-    },
-
-    methods: {
-
-      selectPalette() {
-
-      },
-      
-    }
-
   }
 </script>

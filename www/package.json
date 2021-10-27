@@ -28,6 +28,7 @@
         "@inertiajs/inertia-vue": "^0.7.2",
         "@inertiajs/progress": "^0.2.6",
         "@tailwindcss/typography": "^0.4.1",
+        "chart.js": "^3.6.0",
         "portal-vue": "^1.5.1",
         "postcss-import": "^14.0.2",
         "postcss-nesting": "^8.0.1",
