@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build":"electron-packager . Phytokiller --out=dist --ignore=^/www/node_modules --overwrite"
+    "build":"electron-packager . Phytokiller --prune=true --icon=logo.svg --out=dist --ignore=^/www/node_modules --overwrite"
   },
   "keywords": [],
   "author": "",
