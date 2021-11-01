@@ -54,7 +54,7 @@ sudo apt-get update
 ```
 
 ```
-sudo apt-get install nginx php8.0-fpm php-xml php-curl php-mbstring -y
+sudo apt-get install nginx php8.0-fpm php-xml php-curl php-mbstring php-sqlite3 -y
 ```
 
 Tester l'installation :
