@@ -1,0 +1,17 @@
+{
+  "name": "phytokiller",
+  "version": "1.0.0",
+  "description": "Screen app",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-packager . Phytokiller --out=dist --ignore=^/node_modules --overwrite"
+  },
+  "author": "Martin Chevignard",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^15.3.0",
+    "electron-packager": "^15.4.0"
+  }
+}
