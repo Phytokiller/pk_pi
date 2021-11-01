@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBathPalettesTable extends Migration
+class CreateBathPaletteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBathPalettesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bath_palettes', function (Blueprint $table) {
+        Schema::create('bath_palette', function (Blueprint $table) {
             $table->uuid('bath_id')->index();
             $table->uuid('palette_id')->index();
         });
@@ -26,6 +26,6 @@ class CreateBathPalettesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bath_palettes');
+        Schema::dropIfExists('bath_palette');
     }
 }

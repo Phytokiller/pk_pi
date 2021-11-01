@@ -37,19 +37,6 @@ export default {
     }
   },
 
-  sockets: {
-    connect: function() {
-      console.log("socket connected");
-      this.websocketStatus = true;
-      this.listen();
-    },
-    disconnect: function() {
-      console.log("socket disconnected");
-      this.websocketStatus = false;
-      this.stopListening();
-    }
-  },
-
   methods: {
 
     listen() {

@@ -23,4 +23,23 @@ class PaletteController extends Controller
 
     }
 
+    public function start()
+    {
+        return $this->pk->currentAccount()
+                        ->palettes()
+                        ->whereDoesntHave('bath')
+                        ->orderBy('id')
+                        ->first();
+    }
+
+    public function next(Palette $palette)
+    {
+        return $this->pk->currentAccount()->palettes()->where('id', '>', $palette->id)->orderBy('id')->first();
+    }
+
+    public function prev(Palette $palette)
+    {
+        return $this->pk->currentAccount()->palettes()->where('id', '<', $palette->id)->orderBy('id', 'desc')->first();
+    }
+
 }

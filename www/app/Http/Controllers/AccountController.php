@@ -4,20 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\User;
-use App\Models\Setting;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-
-    private $settings;
-
-    public function __construct()
-    {
-        $this->settings = Setting::find(1);
-    }
 
     /**
      * Update the resource in storage.

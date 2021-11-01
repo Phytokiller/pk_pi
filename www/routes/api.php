@@ -31,7 +31,3 @@ Route::get('baths', [BathController::class, 'getNextNumber']);
 Route::put('account', [AccountController::class, 'update']);
 Route::put('palettes', [PaletteController::class, 'update']);
 
-
-// From App
-Route::put('accounts/{account}/switch', [AccountController::class, 'switch'])->name('accounts.switch');
-Route::put('users/{user}/switch', [UserController::class, 'switch'])->name('users.switch');

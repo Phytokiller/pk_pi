@@ -9,13 +9,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    private $settings;
-
-    public function __construct()
-    {
-        $this->settings = Setting::find(1);
-    }
-
     public function switch($id)
     {
 

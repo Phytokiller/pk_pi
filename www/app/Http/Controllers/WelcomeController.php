@@ -4,18 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Palette;
 use Illuminate\Http\Request;
-use App\Helpers\PK;
 use Inertia\Inertia;
 
 class WelcomeController extends Controller
 {
-
-    protected $pk;
-
-    public function __construct()
-    {
-        $this->pk = new PK;
-    }
 
     /**
      * Display a listing of the resource.
@@ -25,20 +17,20 @@ class WelcomeController extends Controller
     public function index()
     {
 
-        $debug = [
-            'Compte' => $this->pk->currentAccount(),
-            'Settings' => $this->pk->settings,
-            'Users' => $this->pk->currentAccount()->users,
-            'Palettes' => $this->pk->currentAccount()->palettes,
-        ];
-
-        //dd($debug);
-
         return Inertia::render('Welcome', [
-            'palettes' => $this->pk->currentAccount()->palettes,
+            'palettes' => $this->pk->currentAccount()
+                        ->palettes()
+                        ->with('baths')
+                        ->orderBy('id', 'desc')
+                        ->paginate(1),
+            'default' => $this->pk->currentAccount()
+                        ->palettes()
+                        ->whereDoesntHave('baths')
+                        ->orderBy('id')
+                        ->limit(2)
+                        ->get(),
         ]);
 
-        //return view('welcome', ['pk' => $this->pk]);
     }
 
 }
