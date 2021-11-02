@@ -103,6 +103,11 @@
       // If none selected get default palettes
       this.selected = (this.$store.state.palettes.length >= 1) ? this.$store.state.palettes : this.default;
 
+      this.sockets.subscribe('door', (data) => {
+          this.door = data.door;
+          if(this.door && this.selected.length > 0) this.start();
+      });
+
     },
 
     methods: {

@@ -138,6 +138,17 @@ def handle_boiler(sid, data):
     sio.emit('boiler', data) 
 
 
+@sio.on('/door')
+def handle_door(sid, data):
+    """
+        From modules.boiler.py
+            'name' : 'is_running',
+            'value':'True' 
+    """
+    print("receive door %s " % data)
+    sio.emit('door', data) 
+
+
 
 
 
