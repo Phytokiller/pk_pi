@@ -6,6 +6,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaletteController;
+use App\Http\Controllers\BathController;
 
 
 /*
@@ -32,3 +33,9 @@ Route::put('users/{user}/switch', [UserController::class, 'switch'])->name('user
 Route::get('palettes/{palette}/start', [PaletteController::class, 'start'])->name('palettes.start');
 Route::get('palettes/{palette}/next', [PaletteController::class, 'next'])->name('palettes.next');
 Route::get('palettes/{palette}/prev', [PaletteController::class, 'prev'])->name('palettes.prev');
+
+// BATHS
+Route::post('baths', [BathController::class, 'store'])->name('baths.store');
+Route::get('baths', [BathController::class, 'show'])->name('baths.show'); // For tests
+Route::post('baths/{bath}/measure', [BathController::class, 'measure'])->name('baths.measure');
+Route::put('baths/{bath}', [BathController::class, 'finish'])->name('baths.finish');

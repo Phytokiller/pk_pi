@@ -44,6 +44,9 @@ module.exports = {
       screens: {
         'print': {'raw': 'print'},
       },
+      animation: theme => ({
+        'spin-slow': 'spin 3s linear infinite',
+      }),
     },
   },
   variants: {

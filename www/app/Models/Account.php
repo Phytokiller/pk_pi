@@ -13,6 +13,8 @@ class Account extends Model
     protected $fillable = [
         'id',
         'name',
+        'bath_duration',
+        'bath_temperature',
         'bath_number_prefix',
         'updated_at',
     ];

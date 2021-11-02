@@ -24,6 +24,8 @@ class AccountController extends Controller
             'id' => $request->id,
         ], [
             'name' => $request->name,
+            'bath_duration' => $request->bath_duration,
+            'bath_temperature' => $request->bath_temperature,
             'bath_number_prefix' => $request->bath_number_prefix,
             'updated_at' => Carbon::now(),
         ]);

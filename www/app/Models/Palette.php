@@ -20,4 +20,9 @@ class Palette extends Model
         return $this->belongsToMany(Bath::class);
     }
 
+    public function bath()
+    {
+        return $this->baths()->whereNotNull('finished_at')->orderBy('finished_at', 'desc');
+    }
+
 }

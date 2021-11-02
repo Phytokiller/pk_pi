@@ -20,12 +20,12 @@ class WelcomeController extends Controller
         return Inertia::render('Welcome', [
             'palettes' => $this->pk->currentAccount()
                         ->palettes()
-                        ->with('baths')
+                        ->with('bath')
                         ->orderBy('id', 'desc')
                         ->paginate(1),
             'default' => $this->pk->currentAccount()
                         ->palettes()
-                        ->whereDoesntHave('baths')
+                        ->whereDoesntHave('bath')
                         ->orderBy('id')
                         ->limit(2)
                         ->get(),

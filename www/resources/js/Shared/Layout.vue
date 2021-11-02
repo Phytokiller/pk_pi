@@ -56,10 +56,13 @@
         </div>
 
         <div class="md:flex md:flex-grow md:overflow-hidden">
-          <sensors class="hidden print:hidden md:block bg-indigo-800 flex-shrink-0 w-56 p-2 overflow-y-auto" />
-          <div class="md:flex-1 px-4 py-8 md:p-12 md:overflow-y-auto flex items-center justify-center" scroll-region>
+          <div class="bg-indigo-800 flex-shrink-0 w-56 p-2 overflow-y-auto flex flex-col">
+            <sensors class="flex-1"/>
+            <clock class="text-white text-center"/>
+          </div>
+          <div class="md:flex-1 overflow-y-auto flex flex-col items-center justify-center" scroll-region>
             <flash-messages />
-            <slot class=""/>
+            <slot/>
           </div>
         </div>
 
@@ -72,6 +75,7 @@
 
 import Logo from '@/Shared/Logo'
 import Sensors from '@/Shared/Sensors'
+import Clock from '@/Shared/Clock'
 import Dropdown from '@/Shared/Dropdown'
 import FlashMessages from '@/Shared/FlashMessages'
 
@@ -82,6 +86,7 @@ export default {
     FlashMessages,
     Logo,
     Sensors,
+    Clock,
   },
 
 }

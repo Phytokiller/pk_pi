@@ -14,25 +14,12 @@ Vue.use(PortalVue)
 
 Vue.use(
   new VueSocketIO({
-    debug: true,
-    connection: io(process.env.MIX_PI_WS_CONNEXION, {
+    debug: process.env.APP_DEBUG,
+    connection: io('http://localhost:5000', {
       transports: ["websocket", "polling", "flashsocket"]
     }),
   })
 );
-
-const sockets =  {
-    connect: function() {
-      console.log("socket connected");
-      this.websocketStatus = true;
-      this.listen();
-    },
-    disconnect: function() {
-      console.log("socket disconnected");
-      this.websocketStatus = false;
-      this.stopListening();
-    }
- };
 
 InertiaProgress.init()
 

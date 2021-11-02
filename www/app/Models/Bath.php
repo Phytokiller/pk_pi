@@ -14,7 +14,13 @@ class Bath extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = ['account_id', 'user_id', 'number', 'finished_at'];
+
     protected $dates = ['finished_at'];
+
+    protected $casts = [
+        'created_at' => 'datetime:d/m/Y à H:i',
+    ];
 
     public function account()
     {

@@ -1,107 +1,147 @@
 import socketio
+import eventlet
 import time
-import random
-from pynput import keyboard
+
+
+print (socketio.__version__)
+sio = socketio.Server(cors_allowed_origins=[])
+
+app = socketio.WSGIApp(sio, static_files={
+    '/': {'content_type': 'text/html', 'filename': 'index.html'}
+})
+
+port = 5000
+
+@sio.event
+def connect(sid, environ):
+    print('connect ', sid)
+@sio.event
+def disconnect(sid):
+    print('disconnect ', sid)
+
 
 """
-    pip3 install -r requierments.txt
-    sudo python3 -m ensurepip --upgrade
-
-    --> preference System/Sécurité et confidentialité/Confidentialité
-        --> Accesibilité
-            --> ajouter terminal
-
-    Socket io client
+    FROM vueJS
 """
-s_io = socketio.Client()
-Tmin = 49.00
-Tmax = 51.00
-Tdiff = 1
 
-# to change state of boiler or door with keyboard
-boilerKey = 'b'
-doorKey = 'd'
-
-boilerState = False
-doorState = False
-oldBoilerState = False
-oldDoorState = False
-
-now = time.time()
-
-#Listen keyboard
-def on_press(key):
-    global boilerKey
-    global boilerState
-    global doorKey
-    global doorState   
-    global s_io
-
-    try:
-        k = key.char  # single-char keys
-    except:
-        k = key.name  # other keys
-    if k == boilerKey :
-        print('%s pressed : change boiler State'% boilerKey)
-        boilerState = not boilerState
-    if k == doorKey :
-        print('%s pressed : change door State'%doorKey)
-        doorState = not doorState
+# VOLUME (user action)
+@sio.on('volume')
+def handle_volume(sid, data):
+    print("emission du volume")
+    sio.emit('/volume', {'volume': data})
 
 
-listener = keyboard.Listener(on_press=on_press)
-listener.start()  # start to listen on a separate thread
-#listener.join()  # remove if main thread is polling self.keys
+# SETTINGS UPDATE
+@sio.on('settings')
+def handle_settings(sid, data):
+    print("paramètres modifiés %s" % data)
+    sio.emit('/settings', {'settings': data})
 
 
-def try_socket_connection(socket_io_client: socketio.Client):
-    try:
-        socket_io_client.connect(
-            "http://localhost:5000")
-    except Exception as e:
-        print("Could no connect to SocketIO server at instanciation, retrying later, ", e)
-    else:
-        print("PKPY connected socket server with SID %s and transport %s" %
-            (socket_io_client.sid, socket_io_client.transport))
+# MANUAL TRAITEMENT (user action)
+@sio.on('manual_traitement')
+def handle_manual_traitement(sid, data):
+    """
+        From touch screen app
+            'name': 'traitement',
+            'value': 'start' OR 'stop'
+    """
+    print("receive manual traitement %s" % data)
+    sio.emit('/manual_traitement', data) 
+
+# IS RUNNING (true/false)
+@sio.on('running')
+def handle_running(sid, data):
+    """
+        From touch screen app
+            boolean
+    """
+    print("Running %s" % data)
+    sio.emit('/running', data) 
+
+
+"""
+###############################################
+#
+#    FROM pkpy
+#
+################################################
+"""
+@sio.on('/sensors')
+def handle_sensor(sid, data):
+    """
+        From pkpy_main.py
+            'T1': {
+                'name': 'pt100 #1',
+                'value': global_vars.T1
+            },
+            'T2': {
+                'name': 'pt100 #2',
+                'value': global_vars.T2
+            },
+            'COVER': {
+                'name': 'cover',
+                'value' : global_vars.COVER
+
+    """
+    print("receive sensors %s" % data)
+    sio.emit('sensors', data) 
+
+@sio.on('/traitement')
+def handle_traitement(sid, data):
+    """
+        From modules.cover.py
+            'name': 'traitement',
+            'value': 'start' OR 'stop'
+    """
+    print("receive traitement %s" % data)
+    sio.emit('traitement', data) 
+
+@sio.on('/counter')
+def handle_counter(sid, data):
+    """
+        From modules.counter.py
+            'name' : 'elapsed_time',
+            'value': self.elapsed_time
+    """
+    print("receive counter %s" % data)
+    sio.emit('counter', data) 
+
+@sio.on('/measure')
+def handle_counter(sid, data):
+    """
+        From modules.counter.py
+        'elapsed_time' : {
+            'name' : 'elapsed_time',
+            'value' : self.elapsed_time },
+        'T1' : {
+            'name' : 'T1',
+            'value' : global_vars.T1 },
+        'T2' : {
+            'name' : 'T2',
+            'value' : global_vars.T2 },
+        'boiler_state' : {
+            'name' : 'boiler_state',
+            'value' : global_vars.BOILER }
+    """
+    print("receive measure %s" % data)
+    sio.emit('measure', data)
+
+@sio.on('/boiler')
+def handle_boiler(sid, data):
+    """
+        From modules.boiler.py
+            'name' : 'is_running',
+            'value':'True' 
+    """
+    print("receive boiler %s " % data)
+    sio.emit('boiler', data) 
 
 
 
 
-if __name__ == "__main__":
-    print("start")
 
-    # CONNECT websocket Client
-
-    while not s_io.connected:
-        print("CONNECT")
-        try_socket_connection(s_io)
-        time.sleep(0.5)
-
+if __name__ == '__main__':
+    eventlet.wsgi.server(eventlet.listen(('', port)), app)
     while True :
-        # SEND DATA
-        T1 = round(random.uniform(Tmin, Tmax), 2)
-        diff = random.uniform(-Tdiff/2,+Tdiff/2)
-        T2 = round(T1+diff,2)
-        now = time.time()
-        s_io.emit('/sensors', {
-                'T1': T1,
-                'T2': T2
-            })
-
-        if oldBoilerState != boilerState :
-            s_io.emit('/boiler', {
-                'boiler': boilerState
-            })
-            oldBoilerState = boilerState
-            print("change boiler")
-        if oldDoorState != doorState :
-            s_io.emit('/door', {
-                'door': doorState
-            })
-            oldDoorState = doorState
-            print("change door")
-
-            
         time.sleep(1)
-
-            

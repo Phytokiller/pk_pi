@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col h-full text-center">
+  <div class="w-full flex flex-col h-full text-center pt-4">
 
     Sélection des palettes
 
@@ -23,8 +23,13 @@
         <button @click="select(palette)" class="border rounded p-4 border-gray-400">
           {{ palette.number }}
         </button>
-        <span v-if="palette.baths.length < 1" class="block text-sm">non traitée</span>
-        <span v-else class="block text-sm text-red-600">déjà traitée</span>
+        <span v-if="palette.bath.length > 0" class="block text-sm text-yellow-500 mt-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          Traitée le {{ palette.bath[0].created_at }}
+        </span>
+        <span v-else class="block text-sm text-green-500 mt-1">non traitée</span>
 
       </div>
 
@@ -62,8 +67,8 @@
     <div v-else class="flex flex-1 items-center justify-center">Aucune palette sélectionnée.</div>
 
     <div class="text-center" v-if="selected.length > 0">
-      <span class="text-sm">En attente du capteur de déclenchement...</span>
-      <button type="button" class="block w-full mt-6 border bg-indigo-300 border-indigo-600 text-white font-bold px-4 py-2 text-4xl uppercase rounded tracking-wider focus:outline-none hover:bg-blue-2000"> Démarrage manuel</button>
+      <span class="text-sm animate-pulse">En attente du capteur de déclenchement...</span>
+      <button type="button" @click="start" class="block w-full mt-6 border-t bg-green-400 border-green-600 text-white font-bold px-4 py-2 text-4xl uppercase tracking-wider focus:outline-none hover:bg-blue-2000"> Démarrage manuel</button>
     </div>
 
   </div>
@@ -95,6 +100,7 @@
 
     mounted() {
 
+      // If none selected get default palettes
       this.selected = (this.$store.state.palettes.length >= 1) ? this.$store.state.palettes : this.default;
 
     },
@@ -109,7 +115,12 @@
       deselect(index) {
         this.selected.splice(index, 1);
         this.$store.commit('selected', this.selected);
-      }
+      },
+
+      start() {
+        let form = this.$inertia.form({'palettes': this.selected});
+        form.post(route('baths.store'));
+      },
 
     }
 
