@@ -19,7 +19,7 @@
     </div>
 
     <div class="flex flex-1 items-center justify-center px-4">
-      <line-chart v-if="chart" :chart-data="chart" class="relative max-h-72"/>
+      <canvas id="bathChart"></canvas>
     </div>
 
     <div class="text-center">
@@ -36,16 +36,18 @@
 <script>
 
   import Layout from '@/Shared/Layout'
-  import LineChart from '@/Shared/LineChart'
+
   import moment from "moment/moment";
   moment.locale("fr");
+
+  import { Chart, registerables } from "chart.js";
+  Chart.register(...registerables);
 
   export default {
 
     layout: Layout,
 
     components: {
-      LineChart,
     },
 
     props: {
@@ -57,6 +59,7 @@
       this.listen();
       this.timer();
       this.measures();
+      this.initChart();
     },
 
     data() {
@@ -65,30 +68,7 @@
         errors: {
           time: false,
         },
-        chart: {
-          labels: [],
-          datasets: [
-            {
-                label: 'T1',
-                data: [],
-            },
-            {
-                label: 'T2',
-                data: [],
-            },
-            {
-                label: 'Chaudière',
-                data: [],
-            },
-          ],
-          options: {
-            scales: {
-              xAxis: {
-                type: 'time',
-              }
-            }
-          }
-        },
+        chart: null,
         sensors: null,
         door: false,
         boiler: false,
@@ -96,6 +76,7 @@
         timerInterval: null,
         counter: 0,
         elapsed_time: '00:00',
+        bath_duration: moment("2015-01-01").startOf('day').minutes(this.$page.props.account.bath_duration).format('mm:ss'),
       }
     },
 
@@ -124,24 +105,27 @@
       },
 
       updateChart() {
-        this.chart.labels.push(this.elapsed_time);
-        this.chart.datasets[0].data.push(this.sensors.T1);
-        this.chart.datasets[1].data.push(this.sensors.T2);
-        this.chart.datasets[2].data.push(this.boiler);
+        this.chart.data.labels.push(this.elapsed_time);
+        this.chart.data.datasets[0].data.push(this.sensors.T1);
+        this.chart.data.datasets[1].data.push(this.sensors.T2);
+        this.chart.data.datasets[2].data.push(this.boiler);
+        this.chart.update();
       },
 
-      measures(every = 3) {
+      measures(every = 30) {
         this.measuresInterval = setInterval(function(){
 
           this.updateChart();
 
-          axios.post(route('baths.measure', this.bath.id), {
-            sensor_1: this.sensors.T1,
-            sensor_2: this.sensors.T2,
-            door: this.door,
-            boiler: this.boiler,
-            elapsed_time: this.elapsed_time
-          });
+          if (this.bath) {
+            axios.post(route('baths.measure', this.bath.id), {
+              sensor_1: this.sensors.T1,
+              sensor_2: this.sensors.T2,
+              door: this.door,
+              boiler: this.boiler,
+              elapsed_time: this.elapsed_time
+            });
+          }
 
         }.bind(this), every * 1000);
       },
@@ -150,7 +134,7 @@
         this.timerInterval = setInterval(function(){
           ++this.counter;
           this.elapsed_time = moment("2015-01-01").startOf('day').seconds(this.counter).format('mm:ss');
-          this.errors.time = (this.elapsed_time > this.$page.props.account.bath_duration) ? true : false;
+          this.errors.time = (this.elapsed_time > this.bath_duration) ? true : false;
         }.bind(this), 1000);
       },
 
@@ -169,9 +153,69 @@
         this.counter = 0;
 
         // UPDATE BATH
-        this.form.put(route('baths.finish', this.bath.id));
+        if(this.bath)
+          this.form.put(route('baths.finish', this.bath.id));
 
       },
+
+      initChart() {
+        // CHART
+        var ctx = document.getElementById("bathChart");
+        this.chart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: [],
+            datasets: [
+              {
+                label: "T1",
+                yAxisID: 'A',
+                data: [],
+                borderColor: "#B5EAEA",
+                backgroundColor: "#B5EAEA",
+                tension: 0.4
+              },
+              {
+                label: "T2",
+                yAxisID: 'A',
+                data: [],
+                borderColor: "#FFBCBC",
+                backgroundColor: "#FFBCBC",
+                tension: 0.4,
+              },
+              {
+                  label: "Chaudière",
+                  yAxisID: 'B',
+                  data: [],
+                  borderColor: '#CCC',
+                  borderDash: [10,5],
+                  pointRadius: 0,
+                  fill: true,
+                  tension: 0.4,
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              A: {
+                  type: 'linear',
+                  position: 'left',
+              },
+              B: {
+                  type: 'linear',
+                  beginAtZero: true,
+                  position: 'right',
+                  ticks: {
+                      max: 1,
+                      min: 0
+                  }
+              }
+            }
+          }
+        });
+      },
+
 
     },
 

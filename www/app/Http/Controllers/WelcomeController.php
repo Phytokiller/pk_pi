@@ -21,7 +21,7 @@ class WelcomeController extends Controller
             'palettes' => $this->pk->currentAccount()
                         ->palettes()
                         ->with('bath')
-                        ->orderBy('id', 'desc')
+                        ->orderBy('id')
                         ->paginate(1),
             'default' => $this->pk->currentAccount()
                         ->palettes()
