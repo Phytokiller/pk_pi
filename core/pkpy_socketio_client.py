@@ -66,8 +66,6 @@ if __name__ == "__main__":
 
     while True :
 
-        listen_keyboard()
-
         # SEND DATA
         T1 = round(random.uniform(Tmin, Tmax), 2)
         diff = random.uniform(-Tdiff/2,+Tdiff/2)
