@@ -15,7 +15,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL('http://pk_pi.test')
+  mainWindow.loadURL('http://localhost')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
