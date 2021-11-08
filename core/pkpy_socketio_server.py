@@ -3,7 +3,7 @@ import eventlet
 import time
 
 
-print (socketio.__version__)
+#print (socketio.__version__)
 sio = socketio.Server(cors_allowed_origins=[])
 
 app = socketio.WSGIApp(sio, static_files={
