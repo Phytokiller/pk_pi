@@ -34,9 +34,9 @@ class BathController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Account $account)
+    public function index()
     {
-        return response()->json($account->baths);
+        return response()->json($this->pk->currentAccount()->baths()->with('measures')->get());
     }
 
     /**

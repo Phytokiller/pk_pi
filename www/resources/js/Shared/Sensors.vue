@@ -1,7 +1,7 @@
 <template>
   <div class="text-white">
 
-    <div class="flex flex-col text-2xl">
+    <div class="flex flex-col text-2xl" v-if="sensors">
 
         <div class="py-4 px-4 border-b border-indigo-400" :class="{'bg-red-400 animate-pulse': errors.T1}">
           T1:  {{ sensors.T1 }}°C

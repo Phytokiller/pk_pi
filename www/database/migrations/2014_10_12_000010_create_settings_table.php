@@ -17,6 +17,8 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->integer('account_id')->nullable();
             $table->uuid('user_id')->nullable();
+            $table->uuid('device_id')->nullable();
+            $table->string('manager_url')->nullable();
             $table->timestamps();
         });
     }
