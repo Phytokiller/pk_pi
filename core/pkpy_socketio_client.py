@@ -1,18 +1,7 @@
 import socketio
 import time
 import random
-from pynput import keyboard
 
-"""
-    pip3 install -r requierments.txt
-    sudo python3 -m ensurepip --upgrade
-
-    --> preference System/Sécurité et confidentialité/Confidentialité
-        --> Accesibilité
-            --> ajouter terminal
-
-    Socket io client
-"""
 s_io = socketio.Client()
 Tmin = 49.00
 Tmax = 51.00
@@ -28,44 +17,6 @@ oldBoilerState = False
 oldDoorState = False
 
 now = time.time()
-
-#Listen keyboard
-def on_press(key):
-    global boilerKey
-    global boilerState
-    global doorKey
-    global doorState   
-    global s_io
-
-    try:
-        k = key.char  # single-char keys
-    except:
-        k = key.name  # other keys
-    if k == boilerKey :
-        print('%s pressed : change boiler State'% boilerKey)
-        boilerState = not boilerState
-    if k == doorKey :
-        print('%s pressed : change door State'%doorKey)
-        doorState = not doorState
-
-
-listener = keyboard.Listener(on_press=on_press)
-listener.start()  # start to listen on a separate thread
-#listener.join()  # remove if main thread is polling self.keys
-
-
-def try_socket_connection(socket_io_client: socketio.Client):
-    try:
-        socket_io_client.connect(
-            "http://localhost:5000")
-    except Exception as e:
-        print("Could no connect to SocketIO server at instanciation, retrying later, ", e)
-    else:
-        print("PKPY connected socket server with SID %s and transport %s" %
-            (socket_io_client.sid, socket_io_client.transport))
-
-
-
 
 if __name__ == "__main__":
     print("start")
