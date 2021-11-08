@@ -20,7 +20,7 @@ oldDoorState = False
 now = time.time()
 
 # Listen keyboard
-def listen_keyboard(key):
+def listen_keyboard():
     global boilerKey
     global boilerState
     global doorKey
