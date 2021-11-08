@@ -1,7 +1,6 @@
 import socketio
 import time
 import random
-import keyboard
 
 s_io = socketio.Client()
 Tmin = 49.00
@@ -18,28 +17,6 @@ oldBoilerState = False
 oldDoorState = False
 
 now = time.time()
-
-# Listen keyboard
-def key_press(key):
-    global boilerKey
-    global boilerState
-    global doorKey
-    global doorState   
-    global s_io
-
-    try:
-        k = key.char  # single-char keys
-    except:
-        k = key.name  # other keys
-    if k == boilerKey :
-        print('%s pressed : change boiler State'% boilerKey)
-        boilerState = not boilerState
-    if k == doorKey :
-        print('%s pressed : change door State'%doorKey)
-        doorState = not doorState
-
-
-keyboard.on_press(key_press)
 
 # Try socket connection
 def try_socket_connection(socket_io_client: socketio.Client):
