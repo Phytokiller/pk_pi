@@ -18,6 +18,17 @@ oldDoorState = False
 
 now = time.time()
 
+def try_socket_connection(socket_io_client: socketio.Client):
+    try:
+        socket_io_client.connect(
+            "http://localhost:5000")
+    except Exception as e:
+        print("Could no connect to SocketIO server at instanciation, retrying later, ", e)
+    else:
+        print("PKPY connected socket server with SID %s and transport %s" %
+            (socket_io_client.sid, socket_io_client.transport))
+
+
 if __name__ == "__main__":
     print("start")
 
