@@ -1,6 +1,7 @@
 import socketio
 import time
 import random
+import keyboard
 
 s_io = socketio.Client()
 Tmin = 49.00
@@ -18,6 +19,21 @@ oldDoorState = False
 
 now = time.time()
 
+# Listen keyboard
+def listen_keyboard(key):
+    global boilerKey
+    global boilerState
+    global doorKey
+    global doorState   
+
+    if keyboard.read_key() == boilerKey :
+        print('%s pressed : change boiler State'% boilerKey)
+        boilerState = not boilerState
+    if keyboard.read_key() == doorKey :
+        print('%s pressed : change door State'%doorKey)
+        doorState = not doorState
+
+# Try socket connection
 def try_socket_connection(socket_io_client: socketio.Client):
     try:
         socket_io_client.connect(
@@ -40,6 +56,9 @@ if __name__ == "__main__":
         time.sleep(0.5)
 
     while True :
+
+        listen_keyboard()
+
         # SEND DATA
         T1 = round(random.uniform(Tmin, Tmax), 2)
         diff = random.uniform(-Tdiff/2,+Tdiff/2)

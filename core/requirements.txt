@@ -3,3 +3,4 @@ python-socketio==4.4.0
 eventlet
 pynput
 requests
+keyboard
