@@ -63,88 +63,42 @@ def handle_running(sid, data):
 """
 ###############################################
 #
-#    FROM pkpy
+#    FROM pk_pi
 #
 ################################################
 """
 @sio.on('/sensors')
 def handle_sensor(sid, data):
-    """
-        From pkpy_main.py
-            'T1': {
-                'name': 'pt100 #1',
-                'value': global_vars.T1
-            },
-            'T2': {
-                'name': 'pt100 #2',
-                'value': global_vars.T2
-            },
-            'COVER': {
-                'name': 'cover',
-                'value' : global_vars.COVER
-
-    """
     print("receive sensors %s" % data)
     sio.emit('sensors', data) 
 
+
 @sio.on('/traitement')
 def handle_traitement(sid, data):
-    """
-        From modules.cover.py
-            'name': 'traitement',
-            'value': 'start' OR 'stop'
-    """
     print("receive traitement %s" % data)
     sio.emit('traitement', data) 
 
+
 @sio.on('/counter')
 def handle_counter(sid, data):
-    """
-        From modules.counter.py
-            'name' : 'elapsed_time',
-            'value': self.elapsed_time
-    """
     print("receive counter %s" % data)
     sio.emit('counter', data) 
 
+
 @sio.on('/measure')
 def handle_counter(sid, data):
-    """
-        From modules.counter.py
-        'elapsed_time' : {
-            'name' : 'elapsed_time',
-            'value' : self.elapsed_time },
-        'T1' : {
-            'name' : 'T1',
-            'value' : global_vars.T1 },
-        'T2' : {
-            'name' : 'T2',
-            'value' : global_vars.T2 },
-        'boiler_state' : {
-            'name' : 'boiler_state',
-            'value' : global_vars.BOILER }
-    """
     print("receive measure %s" % data)
     sio.emit('measure', data)
 
+
 @sio.on('/boiler')
 def handle_boiler(sid, data):
-    """
-        From modules.boiler.py
-            'name' : 'is_running',
-            'value':'True' 
-    """
     print("receive boiler %s " % data)
     sio.emit('boiler', data) 
 
 
 @sio.on('/door')
 def handle_door(sid, data):
-    """
-        From modules.boiler.py
-            'name' : 'is_running',
-            'value':'True' 
-    """
     print("receive door %s " % data)
     sio.emit('door', data) 
 

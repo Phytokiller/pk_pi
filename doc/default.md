@@ -1,0 +1,29 @@
+# Default server configuration
+#
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html/pk_pi/www/public;
+
+        index index.html index.htm index.php;
+
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ /index.php?&query_string;
+        }
+
+        error_page 404 /index.php;
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
