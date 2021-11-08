@@ -1,7 +1,7 @@
 import socketio
 import time
 import random
-from pynput import keyboard
+import keyboard
 
 s_io = socketio.Client()
 Tmin = 49.00
@@ -20,7 +20,7 @@ oldDoorState = False
 now = time.time()
 
 # Listen keyboard
-def on_press(key):
+def key_press(key):
     global boilerKey
     global boilerState
     global doorKey
@@ -39,8 +39,7 @@ def on_press(key):
         doorState = not doorState
 
 
-listener = keyboard.Listener(on_press=on_press)
-listener.start()  # start to listen on a separate thread
+keyboard.on_press(key_press)
 
 # Try socket connection
 def try_socket_connection(socket_io_client: socketio.Client):
