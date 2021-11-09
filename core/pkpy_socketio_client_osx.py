@@ -102,6 +102,6 @@ if __name__ == "__main__":
             print("change door")
 
             
-        time.sleep(1)
+        time.sleep(3)
 
             

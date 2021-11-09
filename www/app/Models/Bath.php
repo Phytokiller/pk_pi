@@ -16,11 +16,14 @@ class Bath extends Model
 
     protected $fillable = ['account_id', 'user_id', 'number', 'finished_at'];
 
+    protected $appends = ['created_at_formated'];
+
     protected $dates = ['finished_at'];
 
-    protected $casts = [
-        'created_at' => 'datetime:d/m/Y à H:i',
-    ];
+    public function getCreatedAtFormatedAttribute()
+    {
+        return $this->created_at->format('d/m/Y à H:i');
+    }
 
     public function account()
     {

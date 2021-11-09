@@ -12,23 +12,6 @@ use Inertia\Inertia;
 class BathController extends Controller
 {
 
-    public function ping()
-    {
-        
-        return response()->json($this->pk->ping());
-
-    }
-
-    public function getNextNumber()
-    {
-        if($this->ping()) {
-            $max = Bath::max('number') ?? $this->pk->currentAccount()->palette_number_prefix . '-000';
-            return ++$max;
-        } else {
-            return "Pas ok";
-        }
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +19,12 @@ class BathController extends Controller
      */
     public function index()
     {
-        return response()->json($this->pk->currentAccount()->baths()->with('measures')->get());
+        return response()->json($this->pk->currentAccount()->baths()
+                                    ->whereHas('measures')
+                                    ->whereHas('palettes')
+                                    ->with('measures', 'palettes')
+                                    ->get()
+                                );
     }
 
     /**
@@ -53,7 +41,7 @@ class BathController extends Controller
         $bath = Bath::create([
             'account_id' => $this->pk->currentAccount()->id,
             'user_id' => $this->pk->currentUser()->id,
-            'number' => $this->getNextNumber(),
+            'number' => $this->pk->nextBathNumber(),
         ]);
 
         $bath->palettes()->attach($ids);
@@ -76,6 +64,20 @@ class BathController extends Controller
         ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+
+        return Bath::upsert($request->baths, 
+            ['id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
+        );
+
+    }
 
     public function show()
     {

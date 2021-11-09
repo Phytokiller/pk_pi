@@ -60,6 +60,7 @@
       this.timer();
       this.measures();
       this.initChart();
+      this.$socket.emit('stop', true);
     },
 
     data() {
@@ -131,11 +132,23 @@
       },
 
       timer() {
+
         this.timerInterval = setInterval(function(){
+
           ++this.counter;
+
           this.elapsed_time = moment("2015-01-01").startOf('day').seconds(this.counter).format('mm:ss');
+
+          this.$socket.emit('processing', {
+            'palettes': this.palettes,
+            'bath': this.bath.number,
+            'elapsed_time': this.elapsed_time,
+          });
+
           this.errors.time = (this.elapsed_time > this.bath_duration) ? true : false;
+
         }.bind(this), 1000);
+
       },
 
       stop() {
@@ -155,6 +168,8 @@
         // UPDATE BATH
         if(this.bath)
           this.form.put(route('baths.finish', this.bath.id));
+
+        this.$socket.emit('stop', true);
 
       },
 

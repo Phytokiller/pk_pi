@@ -21,49 +21,41 @@ def disconnect(sid):
 
 
 """
-    FROM vueJS
+###############################################
+#
+#    FROM SCREEN (PI)
+#
+################################################
 """
+@sio.on('processing')
+def handle_processing(sid, data):
+    # Return elapsed_time and palettes object while bath is processing
+    print("Bath processing data %s" % data)
+    sio.emit('/processing', data, broadcast=True, include_self=False)
 
-# VOLUME (user action)
-@sio.on('volume')
-def handle_volume(sid, data):
-    print("emission du volume")
-    sio.emit('/volume', {'volume': data})
+@sio.on('start')
+def handle_processing(sid, data):
+    # Return true each time a bath is starting
+    print("Bath started %s" % data)
+    sio.emit('/start', data, broadcast=True, include_self=False)
 
+@sio.on('stop')
+def handle_processing(sid, data):
+    # Return true each time a bath was done
+    print("Bath stopped %s" % data)
+    sio.emit('/stop', data, broadcast=True, include_self=False)
 
-# SETTINGS UPDATE
-@sio.on('settings')
-def handle_settings(sid, data):
-    print("paramètres modifiés %s" % data)
-    sio.emit('/settings', {'settings': data})
-
-
-# MANUAL TRAITEMENT (user action)
-@sio.on('manual_traitement')
-def handle_manual_traitement(sid, data):
-    """
-        From touch screen app
-            'name': 'traitement',
-            'value': 'start' OR 'stop'
-    """
-    print("receive manual traitement %s" % data)
-    sio.emit('/manual_traitement', data) 
-
-# IS RUNNING (true/false)
-@sio.on('running')
-def handle_running(sid, data):
-    """
-        From touch screen app
-            boolean
-    """
-    print("Running %s" % data)
-    sio.emit('/running', data) 
+@sio.on('alarm')
+def handle_processing(sid, data):
+    # Return true if an error has been detected while processing bath
+    print("Alarm %s" % data)
+    sio.emit('/alarm', data, broadcast=True, include_self=False)
 
 
 """
 ###############################################
 #
-#    FROM pk_pi
+#    FROM ARDUINO
 #
 ################################################
 """
@@ -71,24 +63,6 @@ def handle_running(sid, data):
 def handle_sensor(sid, data):
     print("receive sensors %s" % data)
     sio.emit('sensors', data) 
-
-
-@sio.on('/traitement')
-def handle_traitement(sid, data):
-    print("receive traitement %s" % data)
-    sio.emit('traitement', data) 
-
-
-@sio.on('/counter')
-def handle_counter(sid, data):
-    print("receive counter %s" % data)
-    sio.emit('counter', data) 
-
-
-@sio.on('/measure')
-def handle_counter(sid, data):
-    print("receive measure %s" % data)
-    sio.emit('measure', data)
 
 
 @sio.on('/boiler')

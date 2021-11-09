@@ -24,11 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('ping', [BathController::class, 'ping']);
-Route::get('baths', [BathController::class, 'getNextNumber']);
+//Route::get('baths', [BathController::class, 'getNextNumber']);
 
 
 // From manager
 Route::put('account', [AccountController::class, 'update']);
 Route::put('palettes', [PaletteController::class, 'update']);
+Route::put('baths', [BathController::class, 'update']);
 
 Route::get('baths', [BathController::class, 'index']);
