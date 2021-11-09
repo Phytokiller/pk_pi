@@ -15,7 +15,7 @@ Vue.use(PortalVue)
 Vue.use(
   new VueSocketIO({
     debug: process.env.APP_DEBUG,
-    connection: io('http://localhost:5000', {
+    connection: io('http://phytokiller.local:5000', {
       transports: ["websocket", "polling", "flashsocket"]
     }),
   })
