@@ -28,7 +28,7 @@ Route::get('ping', [BathController::class, 'ping']);
 
 
 // From manager
-Route::put('synchronize', [AccountController::class, 'synchronize']);
+Route::put('synchronize', [AccountController::class, 'synchronize'])->name('api.synchronize');
 
 Route::put('account', [AccountController::class, 'update']);
 Route::put('palettes', [PaletteController::class, 'update']);
