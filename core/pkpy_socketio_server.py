@@ -23,10 +23,29 @@ def disconnect(sid):
 """
 ###############################################
 #
+#    FROM MANAGER (WEB)
+#
+################################################
+"""
+@sio.on('syncFromManager')
+def handle_processing(sid, data):
+    # Return elapsed_time and palettes object while bath is processing
+    print("Syncing data from manager %s" % data)
+    sio.emit('/syncFromManager', data, broadcast=True, include_self=False)
+
+"""
+###############################################
+#
 #    FROM SCREEN (PI)
 #
 ################################################
 """
+@sio.on('syncFromDevice')
+def handle_processing(sid, data):
+    # Return elapsed_time and palettes object while bath is processing
+    print("Syncing data from device %s" % data)
+    sio.emit('/syncFromDevice', data, broadcast=True, include_self=False)
+
 @sio.on('processing')
 def handle_processing(sid, data):
     # Return elapsed_time and palettes object while bath is processing
