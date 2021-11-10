@@ -28,11 +28,15 @@ Route::get('ping', [BathController::class, 'ping']);
 
 
 // From manager
-Route::put('synchronize', [AccountController::class, 'synchronize']);
+Route::middleware(['cors'])->group(function () {
 
-Route::put('account', [AccountController::class, 'update']);
-Route::put('palettes', [PaletteController::class, 'update']);
-Route::put('baths', [BathController::class, 'update']);
+    Route::put('synchronize', [AccountController::class, 'synchronize']);
+
+    Route::put('account', [AccountController::class, 'update']);
+    Route::put('palettes', [PaletteController::class, 'update']);
+    Route::put('baths', [BathController::class, 'update']);
 
 
-Route::get('baths', [BathController::class, 'index']);
+    Route::get('baths', [BathController::class, 'index']);
+
+});
