@@ -21,23 +21,21 @@ class AccountController extends Controller
     public function synchronize(Request $request)
     {
 
-        dd($request->account);
-        
         // Update account data from manager
         $account = Account::updateOrCreate([
-            'id' => $request->id,
+            'id' => $request->account['id'],
         ], [
-            'name' => $request->name,
-            'bath_duration' => $request->bath_duration,
-            'bath_temperature' => $request->bath_temperature,
-            'bath_number_prefix' => $request->bath_number_prefix,
+            'name' => $request->account['name'],
+            'bath_duration' => $request->account['bath_duration'],
+            'bath_temperature' => $request->account['bath_temperature'],
+            'bath_number_prefix' => $request->account['bath_number_prefix'],
             'updated_at' => Carbon::now(),
         ]);
 
         // Update Users from manager
         $ids = [];
 
-        foreach($request->users as $user) {
+        foreach($request->account['users'] as $user) {
 
             User::updateOrCreate([
                 'id' => $user['id'],
