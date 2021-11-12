@@ -12,8 +12,12 @@ def send(message) :
 	ser.write(byte_to_send)
 
 while True :
-	send('%test1')
-	time.sleep(1)
-	send('%test2')
-	time.sleep(2)
+	# Read
+	ligne = ser.read_line()
+    print ligne
+    # Write
+#	send('%test1\n')
+#	time.sleep(1)
+#	send('%test2\n')
+#	time.sleep(2)
 
