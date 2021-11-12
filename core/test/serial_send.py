@@ -12,8 +12,8 @@ def send(message) :
 	ser.write(byte_to_send)
 
 while True :
-	send('test1')
+	send('%test1')
 	time.sleep(1)
-	send('test2')
+	send('%test2')
 	time.sleep(2)
 
