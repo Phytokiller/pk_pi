@@ -14,7 +14,7 @@ def send(message) :
 while True :
 	# Read
 	ligne = ser.read_line()
-    print ligne
+	print ligne
     # Write
 #	send('%test1\n')
 #	time.sleep(1)
