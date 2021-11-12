@@ -2,7 +2,10 @@ import serial
 import time
 
 ser = serial.Serial(port='/dev/ttyAMA3', baudrate=38400)
-ser.open()
+try :
+	ser.open()
+except :
+	print("already open")
 
 def send(message) :
 	byte_to_send = bytes(message, 'utf-8')
