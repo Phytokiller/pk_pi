@@ -1,7 +1,7 @@
 import serial
 import time
 
-ser = serial.Serial(port='/dev/ttyAMA3', baudrate=38400))
+ser = serial.Serial(port='/dev/ttyAMA3', baudrate=38400)
 ser.open()
 
 def send(message) :
@@ -13,4 +13,4 @@ while True :
 	time.sleep(1)
 	send('test2')
 	time.sleep(2)
-	
+
