@@ -31,11 +31,19 @@ def sendSerial(message) :
 def handle_alarm(sid, data):
     print("receive alarm %s" % data)
     if (data == 1) :
-        sendSerial('%alarm:1\n')
+        sendSerial('!alarm:1\n')
     else :
-        sendSerial('%alarm:0\n')
+        sendSerial('!alarm:0\n')
 
+@s_io.on('/T1offset')
+def handle_t1offset(sid, data):
+    print("receive t1 offset %s" % data)
+    sendSerial('!T1offset:%s\n' %data)
 
+@s_io.on('/T2offset')
+def handle_t2offset(sid, data):
+    print("receive t2 offset %s" % data)
+    sendSerial('!T2offset:%s\n' %data)
 
 
 if __name__ == "__main__":
@@ -69,9 +77,9 @@ if __name__ == "__main__":
                 'boiler': boilerState
             })
         elif line.startswith('door') :
-            boilerState = line.split(':')[1]
-            s_io.emit('/boiler', {
-                'boiler': boilerState
+            doorState = line.split(':')[1]
+            s_io.emit('/door', {
+                'door': doorState
             })
 
 
