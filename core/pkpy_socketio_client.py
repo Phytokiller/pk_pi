@@ -4,10 +4,6 @@ import random
 import serial
 
 s_io = socketio.Client()
-Tmin = 49.00
-Tmax = 51.00
-Tdiff = 1
-
 
 # Open Serial
 ser = serial.Serial(port='/dev/ttyAMA3', baudrate=38400)
@@ -31,7 +27,7 @@ def sendSerial(message) :
     byte_to_send = bytes(message, 'utf-8')
     ser.write(byte_to_send)
 
-@sio.on('/alarm')
+@s_io.on('/alarm')
 def handle_alarm(sid, data):
     print("receive alarm %s" % data)
     if (data == 1) :
@@ -59,6 +55,7 @@ if __name__ == "__main__":
     while True :
         #listen Serial and send to socketserver
         line = ser.readline()
+        line = str(line)
         if line.startswith('sensor') :
             T1 = line.split(':')[1]
             T2 = line.split(':')[2]
