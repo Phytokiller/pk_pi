@@ -1,22 +1,16 @@
 import socketio
 import time
 import random
+import serial
 
 s_io = socketio.Client()
 Tmin = 49.00
 Tmax = 51.00
 Tdiff = 1
 
-# to change state of boiler or door with keyboard
-boilerKey = 'b'
-doorKey = 'd'
 
-boilerState = False
-doorState = False
-oldBoilerState = False
-oldDoorState = False
-
-now = time.time()
+# Open Serial
+ser = serial.Serial(port='/dev/ttyAMA3', baudrate=38400)
 
 # Try socket connection
 def try_socket_connection(socket_io_client: socketio.Client):
@@ -30,42 +24,58 @@ def try_socket_connection(socket_io_client: socketio.Client):
             (socket_io_client.sid, socket_io_client.transport))
 
 
+##############
+# Send message RS-485
+##############
+def sendSerial(message) :
+    byte_to_send = bytes(message, 'utf-8')
+    ser.write(byte_to_send)
+
+@sio.on('/alarm')
+def handle_alarm(sid, data):
+    print("receive alarm %s" % data)
+    if (data == 1) :
+        sendSerial('%alarm:1\n')
+    else :
+        sendSerial('%alarm:0\n')
+
+
+
+
 if __name__ == "__main__":
     print("start")
+    
+    try :
+        ser.open()
+    except :
+        print("Serial port already open")
 
     # CONNECT websocket Client
-
     while not s_io.connected:
         print("CONNECT")
         try_socket_connection(s_io)
         time.sleep(0.5)
 
     while True :
-
-        # SEND DATA
-        T1 = round(random.uniform(Tmin, Tmax), 2)
-        diff = random.uniform(-Tdiff/2,+Tdiff/2)
-        T2 = round(T1+diff,2)
-        now = time.time()
-        s_io.emit('/sensors', {
+        #listen Serial and send to socketserver
+        line = ser.readline()
+        if line.startswith('sensor') :
+            T1 = line.split(':')[1]
+            T2 = line.split(':')[2]
+            s_io.emit('/sensors', {
                 'T1': T1,
                 'T2': T2
             })
-
-        if oldBoilerState != boilerState :
+        elif line.startswith('boiler') :
+            boilerState = line.split(':')[1]
             s_io.emit('/boiler', {
                 'boiler': boilerState
             })
-            oldBoilerState = boilerState
-            print("change boiler")
-        if oldDoorState != doorState :
-            s_io.emit('/door', {
-                'door': doorState
+        elif line.startswith('door') :
+            boilerState = line.split(':')[1]
+            s_io.emit('/boiler', {
+                'boiler': boilerState
             })
-            oldDoorState = doorState
-            print("change door")
 
-            
-        time.sleep(3)
 
             
