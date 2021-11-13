@@ -55,8 +55,7 @@ if __name__ == "__main__":
     while True :
         #listen Serial and send to socketserver
         line = ser.readline()
-        line = str(line)
-        print(line)
+        line = line.decode("utf-8")
         if line.startswith('sensors') :
             T1 = line.split(':')[1]
             T2 = line.split(':')[2]
