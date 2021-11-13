@@ -56,7 +56,8 @@ if __name__ == "__main__":
         #listen Serial and send to socketserver
         line = ser.readline()
         line = str(line)
-        if line.startswith('sensor') :
+        print(line)
+        if line.startswith('sensors') :
             T1 = line.split(':')[1]
             T2 = line.split(':')[2]
             s_io.emit('/sensors', {
