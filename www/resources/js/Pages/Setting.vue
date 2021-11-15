@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full flex flex-col h-full text-center p-4">
+  <div class="w-full flex flex-col h-full p-4">
+
+    <h1 class="text-2xl mb-8">Paramètres de la station</h1>
 
     <div class="flex items-center mb-4">
 
@@ -24,7 +26,9 @@
 
     </div>
 
-    <button @click="updateSettings" type="button" class="p-3 bg-indigo-400 rounded text-white text-2xl">Mettre à jour</button>
+    <button @click="updateSettings" type="button" class="mt-8 p-3 bg-indigo-600 rounded text-white text-2xl">Mettre à jour</button>
+
+    <inertia-link :href="route('welcome')" class="mt-4 p-3 bg-gray-300 rounded text-2xl text-center">Fermer</inertia-link>
 
   </div>
 </template>

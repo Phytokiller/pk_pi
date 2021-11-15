@@ -36,7 +36,7 @@ class SettingController extends Controller
         $account->bath_temperature = $request->Tboiler;
         $account->update();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Les paramètres ont été mis à jours.');
 
     }
 
