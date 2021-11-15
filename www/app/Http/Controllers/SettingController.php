@@ -23,17 +23,17 @@ class SettingController extends Controller
 
     }
 
-    public function update()
+    public function update(Request $request)
     {
 
         $settings = $this->pk->settings;
         $account = $this->pk->currentAccount();
 
-        $settings->offset_t1 = Request::input('T1offset');
-        $settings->offset_t2 = Request::input('T2offset');
+        $settings->offset_t1 = $request->T1offset;
+        $settings->offset_t2 = $request->T2offset;
         $settings->update();
 
-        $account->bath_temperature = Request::input('Tboiler');
+        $account->bath_temperature = $request->Tboiler;
         $account->update();
 
         return redirect()->back();
