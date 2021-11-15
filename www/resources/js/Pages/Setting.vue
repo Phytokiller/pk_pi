@@ -4,13 +4,13 @@
     <div class="flex items-center mb-4">
 
       <div class="mr-2">
-        <label class="block mb-2">Offset T1</label>
-        <vue-number-input v-model="form.T1offset" :step="0.1" inline controls size="large"></vue-number-input>
+        <label class="block mb-2">Offset T1 (°C)</label>
+        <vue-number-input v-model="form.T1offset" :step="0.1" :min="-20" :max="20" inline controls size="large"></vue-number-input>
       </div>
 
       <div>
-        <label class="block mb-2">Offset T2</label>
-        <vue-number-input v-model="form.T2offset" :step="0.1" inline controls size="large"></vue-number-input>
+        <label class="block mb-2">Offset T2 (°C)</label>
+        <vue-number-input v-model="form.T2offset" :step="0.1" :min="-20" :max="20" inline controls size="large"></vue-number-input>
       </div>
 
     </div>
@@ -19,7 +19,7 @@
 
       <div>
         <label class="block mb-2">Température chaudière</label>
-        <vue-number-input v-model="form.Tboiler" :step="0.1" inline controls size="large"></vue-number-input>
+        <vue-number-input v-model="form.Tboiler" :step="1" :min="0" :max="100" inline controls size="large"></vue-number-input>
       </div>
 
     </div>
