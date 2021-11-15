@@ -41,7 +41,12 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 ### Webserver
 
 ```
-sudo apt-get update
+sudo apt update
+```
+
+Do you want to accept these changes and continue updating from this repository? [y/N]
+```
+yes
 ```
 
 #### NGINX & PHP
