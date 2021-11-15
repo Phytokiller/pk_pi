@@ -95,6 +95,22 @@ def handle_door(sid, data):
     print("receive door %s " % data)
     sio.emit('door', data) 
 
+########### NOT IMPLEMENTED YET ###################
+@sio.on('/t1offset_ard')
+def handle_t1offset_ard(sid, data):
+    print("receive t1offset from ardbox %s " % data)
+    sio.emit('t1offset_ard', data) 
+
+@sio.on('/t2offset_ard')
+def handle_t2offset_ard(sid, data):
+    print("receive t2offset from ardbox %s " % data)
+    sio.emit('t2offset_ard', data) 
+
+@sio.on('/tboiler_ard')
+def handle_tboiler_ard(sid, data):
+    print("receive tboiler from ardbox %s " % data)
+    sio.emit('tboiler_ard', data) 
+
 
 
 

@@ -45,6 +45,10 @@ def handle_t2offset(sid, data):
     print("receive t2 offset %s" % data)
     sendSerial('!T2offset:%s\n' %data)
 
+@sio.on('/Tboiler')
+def handle_tboiler(sid, data):
+    print("receive tboiler %s " % data)
+    sendSerial('!Tboiler:%s\n' %data)
 
 if __name__ == "__main__":
     print("start")
@@ -84,7 +88,6 @@ if __name__ == "__main__":
         elif line.startswith('door') :
             doorRcv = line.split(':')[1]
             doorState = False
-            print(bytes(doorRcv, 'utf-8'))
             if doorRcv == "1" :
                 doorState = True
             print("EMIT : door:%s" % doorState)
