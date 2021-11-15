@@ -34,7 +34,7 @@ def sendSerial(message) :
 ##############
 @s_io.on('/alarm')
 def handle_alarm(data):
-    #print("receive alarm %s" % data)
+    print("receive alarm %s" % data)
     alarmTemp = data['temp']
     alarmTimeout = data['timeout']
     if (alarmTemp) :
