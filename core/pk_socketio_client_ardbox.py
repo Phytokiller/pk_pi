@@ -98,10 +98,12 @@ if __name__ == "__main__":
                 'door': doorState
             })
         elif line.startswith('settings:') :
-            settingsRcv = line[8]
-            T1offset = line.split
-            # T1offset:xx.xx, T2offset:xx.xx, Tboiler:xx.xx
-            print("EMIT : setting:%s" % settingsRcv)
+            # T1offset:xx.xx,T2offset:xx.xx,Tboiler:xx.xx
+            settingsRcv = line[8:]
+            T1offset = settingsRcv.split(",")[0].split(':')[1]
+            T2offset = settingsRcv.split(",")[1].split(':')[1]
+            Tboiler = settingsRcv.split(",")[2].split(':')[1]
+            print("EMIT /setSettings : T1offset : %s, T2offset :%s, Tboiler : %s" % (T1offset, T2offset, Tboiler))
             s_io.emit('/setSettings', {
                 'T1offset': T1offset,
                 'T2offset': T2offset,
