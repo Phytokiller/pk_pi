@@ -28,6 +28,10 @@ def sendSerial(message) :
     byte_to_send = bytes(message, 'utf-8')
     ser.write(byte_to_send)
 
+
+##############
+# Listen websocket and Send RS-485
+##############
 @s_io.on('/alarm')
 def handle_alarm(sid, data):
     print("receive alarm %s" % data)
@@ -42,7 +46,7 @@ def handle_getSettings(ssid, data):
     sendSerial('!getSettings\n')
 
 @s_io.on('/setSettings')
-def handle_getSettings(ssid, data):
+def handle_setSettings(ssid, data):
     print("receive set Settings %s" % data)
     settings = json.loads(data)
     T1offset = data['T1offset']
