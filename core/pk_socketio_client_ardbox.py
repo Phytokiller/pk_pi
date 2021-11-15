@@ -33,7 +33,7 @@ def sendSerial(message) :
 # Listen websocket and Send RS-485
 ##############
 @s_io.on('/alarm')
-def handle_alarm(sid, data):
+def handle_alarm(data):
     print("receive alarm %s" % data)
     if (data == 1) :
         sendSerial('!alarm:1\n')
@@ -41,12 +41,12 @@ def handle_alarm(sid, data):
         sendSerial('!alarm:0\n')
 
 @s_io.on('/getSettings')
-def handle_getSettings(sid, data):
+def handle_getSettings(data):
     print("receive get settings")
     sendSerial('!getSettings\n')
 
 @s_io.on('/setSettings')
-def handle_setSettings(sid, data):
+def handle_setSettings(data):
     print("receive set Settings %s" % data)
     settings = json.loads(data)
     T1offset = data['T1offset']
@@ -105,7 +105,8 @@ if __name__ == "__main__":
             })
         elif line.startswith('settings:') :
             # {T1offset:xx.xx,T2offset:xx.xx,Tboiler:xx.xx}
-            settingsRcv = json.loads(line[8:])
+            print(line[9:])
+            data = json.loads(line[9:])
             T1offset = data['T1offset']
             T2offset = data['T2offset']
             Tboiler = data['Tboiler']
