@@ -84,7 +84,7 @@ if __name__ == "__main__":
             boilerState = False
             if boilerRcv == "1" :
                 boilerState = True
-            print("EMIT : boiler:%s" % boilerState)
+            #print("EMIT : boiler:%s" % boilerState)
             s_io.emit('/boiler', {
                 'boiler': boilerState
             })
@@ -93,9 +93,19 @@ if __name__ == "__main__":
             doorState = False
             if doorRcv == "1" :
                 doorState = True
-            print("EMIT : door:%s" % doorState)
+            #print("EMIT : door:%s" % doorState)
             s_io.emit('/door', {
                 'door': doorState
+            })
+        elif line.startswith('settings:') :
+            settingsRcv = line[8]
+            T1offset = line.split
+            # T1offset:xx.xx, T2offset:xx.xx, Tboiler:xx.xx
+            print("EMIT : setting:%s" % settingsRcv)
+            s_io.emit('/setSettings', {
+                'T1offset': T1offset,
+                'T2offset': T2offset,
+                'Tboiler' : Tboiler
             })
 
 

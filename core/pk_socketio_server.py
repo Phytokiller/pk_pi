@@ -79,7 +79,7 @@ def handle_processing(sid, data):
 sio.on('setSettings')
 def handle_processing(sid, data):
     # 
-    print("getSettings %s" % data)
+    print("setSettings %s" % data)
     sio.emit('/setSettings', data, broadcast=True, include_self=False)
 
 
