@@ -4,7 +4,7 @@ After=network-online.target
  
 [Service]
 ExecStart=python3 /var/www/html/pk_pi/core/pkpi_socketio_client_ardbox.py
-WorkingDirectory=var/www/html/pk_pi/core/
+WorkingDirectory=/var/www/html/pk_pi/core/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
