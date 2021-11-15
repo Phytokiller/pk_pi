@@ -82,3 +82,10 @@ Zend Engine v4.0.11, Copyright (c) Zend Technologies
 #### Node & NPM
 
     sudo apt install nodejs -y
+
+#### Permissions
+
+    sudo groupadd www-data
+    sudo gpasswd -a pi www-data
+    chown www-data:www-data /var/www
+    chmod 775 /var/www
