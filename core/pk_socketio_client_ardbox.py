@@ -76,6 +76,7 @@ if __name__ == "__main__":
     while True :
         #listen Serial and send to socketserver
         line = ser.readline()
+        print(line)
         line = line.decode("utf-8")
         line = line[:-1] # remove '\n' at the end
         if line.startswith('sensors') :
@@ -106,7 +107,7 @@ if __name__ == "__main__":
         elif line.startswith('settings:') :
             # {T1offset:xx.xx,T2offset:xx.xx,Tboiler:xx.xx}
             print(line[9:])
-            settingsRcv = json.loads(line[9:])
+            data = json.loads(line[9:])
             T1offset = data['T1offset']
             T2offset = data['T2offset']
             Tboiler = data['Tboiler']
