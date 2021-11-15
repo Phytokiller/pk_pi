@@ -78,7 +78,7 @@ def handle_processing(sid, data):
 
 sio.on('setSettings')
 def handle_processing(sid, data):
-    # Return : { "id": 1, "account_id": "2", "user_id": "c332dc73-8110-4a45-b510-e54ea4b2b8b5", "device_id": null, "manager_url": null, "offset_t1": 0, "offset_t2": 0, "created_at": "2021-11-15T10:35:11.000000Z", "updated_at": "2021-11-15T11:18:06.000000Z" } 
+    # Return : { "T1offset": 1, "T2offset": "2", "Tboiler": "50" } 
     print("setSettings %s" % data)
     sio.emit('/setSettings', data, broadcast=True, include_self=False)
 

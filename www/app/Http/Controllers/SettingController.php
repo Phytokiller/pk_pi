@@ -27,6 +27,13 @@ class SettingController extends Controller
     {
 
         $settings = $this->pk->settings;
+        $account = $this->pk->currentAccount();
+
+        $settings->offset_t1 = Request::input('T1offset');
+        $settings->offset_t2 = Request::input('T2offset');
+        $account->bath_temperature = Request::input('Tboiler');
+
+        $settings->update();
 
         return redirect()->back();
 
