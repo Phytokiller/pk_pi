@@ -45,14 +45,15 @@ def handle_getSettings(ssid, data):
 def handle_getSettings(ssid, data):
     print("receive set Settings %s" % data)
     settings = json.loads(data)
-    print("receive t1 offset %s" % data[offset_t1])
-    sendSerial('!T1offset:%s\n' % data)
-
-    print("receive t2 offset %s" % data[offset_t2])
-    sendSerial('!T2offset:%s\n' %data)
-
-#    print("receive tboiler %s " % data[offset_t2])
-#    sendSerial('!Tboiler:%s\n' %data)
+    T1offset = data['T1offset']
+    T2offset = data['T2offset']
+    Tboiler = data['Tboiler']
+    print("receive t1 offset %s" % T1offset)
+    sendSerial('!T1offset:%s\n' % T1offset)
+    print("receive t2 offset %s" % T2offset)
+    sendSerial('!T2offset:%s\n' % T2offset)
+    print("receive tboiler %s " % Tboiler)
+    sendSerial('!Tboiler:%s\n' % Tboiler)
 
 if __name__ == "__main__":
     print("start")
@@ -99,11 +100,11 @@ if __name__ == "__main__":
                 'door': doorState
             })
         elif line.startswith('settings:') :
-            # T1offset:xx.xx,T2offset:xx.xx,Tboiler:xx.xx
-            settingsRcv = line[8:]
-            T1offset = settingsRcv.split(",")[0].split(':')[1]
-            T2offset = settingsRcv.split(",")[1].split(':')[1]
-            Tboiler = settingsRcv.split(",")[2].split(':')[1]
+            # {T1offset:xx.xx,T2offset:xx.xx,Tboiler:xx.xx}
+            settingsRcv = json.loads(line[8:])
+            T1offset = data['T1offset']
+            T2offset = data['T2offset']
+            Tboiler = data['Tboiler']
             print("EMIT /settings : T1offset : %s, T2offset :%s, Tboiler : %s" % (T1offset, T2offset, Tboiler))
             s_io.emit('/settings', {
                 'T1offset': T1offset,
