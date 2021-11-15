@@ -74,7 +74,7 @@ export default {
           this.sensors = data;
           this.errors.T1 = (this.sensors.T1 > this.bath_temperature + 5 || this.sensors.T1 < this.bath_temperature - 5) ? true : false;
           this.errors.T2 = (this.sensors.T2 > this.bath_temperature + 5 || this.sensors.T2 < this.bath_temperature - 5) ? true : false;
-          if(this.errors.T1 || this.errors.T1) this.$socket.emit('alarm', {alarm: true});
+          if(this.errors.T1 || this.errors.T1) this.$socket.emit('alarm', {temp: true});
       });
 
       this.sockets.subscribe('door', (data) => {
