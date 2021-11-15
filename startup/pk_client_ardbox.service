@@ -1,0 +1,14 @@
+[Unit]
+Description=Phytokiller socketio client for ardbox
+After=network-online.target
+ 
+[Service]
+ExecStart=python3 /var/www/html/pk_pi/core/pk_socketio_client_ardbox.py
+WorkingDirectory=/var/www/html/pk_pi/core/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+ 
+[Install]
+WantedBy=multi-user.target

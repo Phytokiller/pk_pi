@@ -41,7 +41,12 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 ### Webserver
 
 ```
-sudo apt-get update
+sudo apt update
+```
+
+Do you want to accept these changes and continue updating from this repository? [y/N]
+```
+yes
 ```
 
 #### NGINX & PHP
@@ -50,7 +55,7 @@ sudo apt install -y lsb-release apt-transport-https ca-certificates wget && sudo
 ```
 
 ```
-sudo apt-get update
+sudo apt update
 ```
 
 ```
@@ -77,3 +82,17 @@ Zend Engine v4.0.11, Copyright (c) Zend Technologies
 #### Node & NPM
 
     sudo apt install nodejs -y
+
+#### Permissions
+
+    sudo groupadd www-data
+    sudo gpasswd -a pi www-data
+    sudo chown -R pi:www-data /var/www
+    sudo chmod -R 775 /var/www
+    
+#### First install
+
+    cd /var/www/html
+    git clone 
+    cd pk_pi/wwww
+    composer install --no-interaction --prefer-dist --optimize-autoloader
