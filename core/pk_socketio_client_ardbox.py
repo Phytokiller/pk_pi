@@ -75,7 +75,7 @@ if __name__ == "__main__":
             boilerRcv = line.split(':')[1]
             boilerState = False
             print(boilerRcv)
-            if boilerRcv == 1 :
+            if boilerRcv == "1\n" :
                 boilerState = True
             print("EMIT : boiler:%s" % boilerState)
             s_io.emit('/boiler', {
