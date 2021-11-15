@@ -78,7 +78,6 @@ def handle_processing(sid, data):
 
 @sio.on('setSettings')
 def handle_processing(sid, data):
-    # Return : { "T1offset": 1, "T2offset": "2", "Tboiler": "50" } 
     print("setSettings %s" % data)
     sio.emit('/setSettings', data, broadcast=True, include_self=False)
 
@@ -110,7 +109,6 @@ def handle_door(sid, data):
 
 @sio.on('/settings')
 def handle_settings(sid, data):
-    # {T1offset:xx.xx, T2offset:xx.xx, Tboiler:xx.xx}
     print("receive settings %s " % data)
     sio.emit('settings', data) 
 
