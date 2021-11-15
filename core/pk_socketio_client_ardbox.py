@@ -35,7 +35,7 @@ def sendSerial(message) :
 @s_io.on('/alarm')
 def handle_alarm(data):
     print("receive alarm %s" % data)
-    if (data == 1) :
+    if (data['alarm']) :
         sendSerial('!alarm:1\n')
     else :
         sendSerial('!alarm:0\n')
@@ -48,7 +48,6 @@ def handle_getSettings(data):
 @s_io.on('/setSettings')
 def handle_setSettings(data):
     print("receive set Settings %s" % data)
-    settings = json.loads(data)
     T1offset = data['T1offset']
     T2offset = data['T2offset']
     Tboiler = data['Tboiler']
