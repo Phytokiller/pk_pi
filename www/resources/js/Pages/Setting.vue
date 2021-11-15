@@ -18,7 +18,7 @@
     <div class="flex items-center mb-4">
 
       <div>
-        <label class="block mb-2">Température du bain</label>
+        <label class="block mb-2">Température chaudière</label>
         <vue-number-input v-model="form.Tboiler" :step="0.1" inline controls size="large"></vue-number-input>
       </div>
 
@@ -59,14 +59,14 @@
 
     mounted() {
 
-      this.$socket.emit('getSettings', {getSettings: true});
-
       this.sockets.subscribe('settings', (data) => {
 
           this.form.T1offset = parseFloat(data.T1offset);
           this.form.T2offset = parseFloat(data.T2offset);
           this.form.Tboiler = parseFloat(data.Tboiler);
       });
+
+      this.$socket.emit('getSettings', {getSettings: true});
 
     },
 
