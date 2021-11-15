@@ -5,7 +5,7 @@ Description=Browser for phytokiller
 # We need this to make sure that chromium is opened in the right X server session
 Environment="DISPLAY=:0"
 Environment="XAUTHORITY=/home/pi/.Xauthority"
-ExecStartPre=sh /var/www/html/pk_pi/startup/pk_update.sh
+#ExecStartPre=sh /var/www/html/pk_pi/startup/pk_update.sh
 ExecStart=chromium-browser --kiosk --disable-features=Translate phytokiller.local
 #ExecStart=chromium-browser phytokiller.local
 Restart=always
