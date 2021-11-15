@@ -71,12 +71,12 @@ def handle_processing(sid, data):
     print("Alarm %s" % data)
     sio.emit('/alarm', data, broadcast=True, include_self=False)
 
-sio.on('getSettings')
+@sio.on('getSettings')
 def handle_processing(sid, data):
     print("getSettings %s" % data)
     sio.emit('/getSettings', data, broadcast=True, include_self=False)
 
-sio.on('setSettings')
+@sio.on('setSettings')
 def handle_processing(sid, data):
     # Return : { "T1offset": 1, "T2offset": "2", "Tboiler": "50" } 
     print("setSettings %s" % data)
