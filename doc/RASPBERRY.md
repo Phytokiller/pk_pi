@@ -93,6 +93,7 @@ Zend Engine v4.0.11, Copyright (c) Zend Technologies
 #### First install
 
     cd /var/www/html
-    git clone 
+    git clone https://github.com/Phytokiller/pk_pi.git
+    ln -s /var/www/html/pk_pi pk_pi
     cd pk_pi/wwww
     composer install --no-interaction --prefer-dist --optimize-autoloader
