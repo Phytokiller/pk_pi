@@ -47,7 +47,7 @@ class PK {
                 $this->settings->update();
                 return $account;
             } else {
-                abort(403, "La station n'a pas de compte enregistré. Vous devez synchroniser votre compte depuis le manager.");
+                return redirect()->route('noaccount');
             }
         }
     }

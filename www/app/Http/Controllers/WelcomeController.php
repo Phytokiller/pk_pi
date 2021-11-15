@@ -33,4 +33,15 @@ class WelcomeController extends Controller
 
     }
 
+    /**
+     * Display a page if the pi doesn't have default account configured
+     *
+     */
+    public function noaccount()
+    {
+
+        return Inertia::render('NoAccount');
+
+    }
+
 }

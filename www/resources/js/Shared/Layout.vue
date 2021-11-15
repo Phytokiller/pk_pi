@@ -89,5 +89,38 @@ export default {
     Clock,
   },
 
+  sockets:  {
+    connect: function() {
+      this.sockets.subscribe('/syncFromManager', (data) => {
+          this.synchronize(data);
+      });
+    },
+    disconnect: function() {
+      this.sockets.unsubscribe('/syncFromManager');
+    }
+  },
+
+  methods: {
+
+    synchronize(data) {
+
+      console.log(data);
+
+      // Push data on device
+      fetch(route('api.synchronize'), {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.$socket.emit('syncFromDevice', data);
+      });
+
+    },
+
+  }
+  
 }
 </script>

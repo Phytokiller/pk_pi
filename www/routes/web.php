@@ -22,6 +22,7 @@ use App\Http\Controllers\BathController;
 
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/noaccount', [WelcomeController::class, 'noaccount'])->name('noaccount');
 
 // ACCOUNT
 Route::put('accounts/{account}/switch', [AccountController::class, 'switch'])->name('accounts.switch');
