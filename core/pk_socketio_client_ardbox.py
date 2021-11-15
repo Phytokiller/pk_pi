@@ -105,8 +105,8 @@ if __name__ == "__main__":
             })
         elif line.startswith('settings:') :
             # {T1offset:xx.xx,T2offset:xx.xx,Tboiler:xx.xx}
-            print(line[8:])
-            settingsRcv = json.loads(line[8:])
+            print(line[9:])
+            settingsRcv = json.loads(line[9:])
             T1offset = data['T1offset']
             T2offset = data['T2offset']
             Tboiler = data['Tboiler']
