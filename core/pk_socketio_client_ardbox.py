@@ -64,6 +64,7 @@ if __name__ == "__main__":
         #listen Serial and send to socketserver
         line = ser.readline()
         line = line.decode("utf-8")
+        line = line[:-1] # remove '\n' at the end
         if line.startswith('sensors') :
             T1 = line.split(':')[1]
             T2 = line.split(':')[2]
@@ -74,8 +75,7 @@ if __name__ == "__main__":
         elif line.startswith('boiler') :
             boilerRcv = line.split(':')[1]
             boilerState = False
-            print(boilerRcv)
-            if boilerRcv == 1 :
+            if boilerRcv == "1" :
                 boilerState = True
             print("EMIT : boiler:%s" % boilerState)
             s_io.emit('/boiler', {
@@ -84,9 +84,10 @@ if __name__ == "__main__":
         elif line.startswith('door') :
             doorRcv = line.split(':')[1]
             doorState = False
-            if doorRcv == 1 :
+            print(bytes(doorRcv, 'utf-8'))
+            if doorRcv == "1" :
                 doorState = True
-            print("EMIT : door:%s" % boilerState)
+            print("EMIT : door:%s" % doorState)
             s_io.emit('/door', {
                 'door': doorState
             })
