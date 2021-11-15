@@ -35,18 +35,21 @@ def handle_alarm(sid, data):
     else :
         sendSerial('!alarm:0\n')
 
-@s_io.on('/T1offset')
-def handle_t1offset(sid, data):
+@s_io.on('/getSettings')
+def handle_getSettings(ssid, data):
+    print("receive get settings")
+    sendSerial('!getSettings\n')
+
+@s_io.on('/setSettings')
+def handle_getSettings(ssid, data):
+    print("receive set Settings %s" % data)
+
     print("receive t1 offset %s" % data)
     sendSerial('!T1offset:%s\n' %data)
 
-@s_io.on('/T2offset')
-def handle_t2offset(sid, data):
     print("receive t2 offset %s" % data)
     sendSerial('!T2offset:%s\n' %data)
 
-@sio.on('/Tboiler')
-def handle_tboiler(sid, data):
     print("receive tboiler %s " % data)
     sendSerial('!Tboiler:%s\n' %data)
 
