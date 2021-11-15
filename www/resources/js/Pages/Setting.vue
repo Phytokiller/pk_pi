@@ -1,9 +1,7 @@
 <template>
   <div class="w-full flex flex-col h-full text-center p-4">
 
-    {{ settings }}
-
-    <div class="flex items-center">
+    <div class="flex items-center mb-4">
 
       <div class="mr-2">
         <label class="block mb-2">Offset T1</label>
@@ -14,6 +12,10 @@
         <label class="block mb-2">Offset T2</label>
         <vue-number-input v-model="form.T2offset" :step="0.1" inline controls size="large"></vue-number-input>
       </div>
+
+    </div>
+
+    <div class="flex items-center mb-4">
 
       <div>
         <label class="block mb-2">Température du bain</label>
@@ -48,21 +50,21 @@
     data() {
       return {
         form: this.$inertia.form({
-          T1offset: this.settings.offset_T1,
-          T2offset: this.settings.offset_T1,
-          Tboiler: this.account.bath_temperature,
+          T1offset: parseFloat(this.settings.offset_T1),
+          T2offset: parseFloat(this.settings.offset_T1),
+          Tboiler: parseFloat(this.account.bath_temperature),
         }),
       }
     },
 
     mounted() {
 
-      this.$socket.emit('getSettings', true);
+      this.$socket.emit('getSettings', {getSettings: true});
 
       this.sockets.subscribe('settings', (data) => {
-          this.form.T1offset = data.T1offset;
-          this.form.T2offset = data.T2offset;
-          this.form.Tboiler = data.Tboiler;
+          this.form.T1offset = parseFloat(data.T1offset);
+          this.form.T2offset = parseFloat(data.T2offset);
+          this.form.Tboiler = parseFloat(data.Tboiler);
       });
 
     },
