@@ -76,7 +76,6 @@ if __name__ == "__main__":
     while True :
         #listen Serial and send to socketserver
         line = ser.readline()
-        print(line)
         line = line.decode("utf-8")
         line = line[:-1] # remove '\n' at the end
         if line.startswith('sensors') :
