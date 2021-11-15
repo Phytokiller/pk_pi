@@ -84,10 +84,7 @@
     methods: {
 
       alert() {
-        // Event if something wrong
-        // Sound
-        // WS
-        // Classes
+        this.$socket.emit('alarm', {alarm: true});
       },
 
       listen() {
@@ -146,6 +143,8 @@
           });
 
           this.errors.time = (this.elapsed_time > this.bath_duration) ? true : false;
+
+          if(this.errors.time) this.alert(); 
 
         }.bind(this), 1000);
 
