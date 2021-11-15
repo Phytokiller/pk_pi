@@ -109,7 +109,7 @@ def handle_door(sid, data):
     sio.emit('door', data) 
 
 @sio.on('/settings')
-def handle_door(sid, data):
+def handle_settings(sid, data):
     # T1offset:xx.xx, T2offset:xx.xx, Tboiler:xx.xx
     print("receive settings %s " % data)
     sio.emit('settings', data) 
