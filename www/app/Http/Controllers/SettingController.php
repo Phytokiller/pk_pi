@@ -14,9 +14,11 @@ class SettingController extends Controller
     {
 
         $settings = $this->pk->settings;
+        $account = $this->pk->currentAccount();
 
         return Inertia::render('Setting', [
             'settings' => $settings,
+            'account' => $account,
         ]);
 
     }
