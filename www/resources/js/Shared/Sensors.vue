@@ -74,7 +74,7 @@ export default {
           this.sensors = data;
           this.errors.T1 = (this.sensors.T1 > this.bath_temperature + 5 || this.sensors.T1 < this.bath_temperature - 5) ? true : false;
           this.errors.T2 = (this.sensors.T2 > this.bath_temperature + 5 || this.sensors.T2 < this.bath_temperature - 5) ? true : false;
-          if(this.errors.T1 || this.errors.T1) this.$socket.emit('alarm', {temp: true});
+          if(this.errors.T1 || this.errors.T1) this.$socket.emit('alarm', {temp: true, timeout: false});
       });
 
       this.sockets.subscribe('door', (data) => {
@@ -89,6 +89,10 @@ export default {
           this.synchronize(data);
       });
 
+      this.sockets.subscribe('/setSettings', (data) => {
+        this.bath_temperature = data.Tboiler;
+      });
+
     },
 
     stopListening() {
@@ -97,6 +101,7 @@ export default {
       this.sockets.unsubscribe('door');
       this.sockets.unsubscribe('boiler');
       this.sockets.unsubscribe('/syncFromManager');
+      this.sockets.unsubscribe('/setSettings');
 
     },
 

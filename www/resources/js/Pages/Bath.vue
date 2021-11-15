@@ -84,7 +84,7 @@
     methods: {
 
       alert() {
-        this.$socket.emit('alarm', {timeout: true});
+        this.$socket.emit('alarm', {temp: false, timeout: true});
       },
 
       listen() {
