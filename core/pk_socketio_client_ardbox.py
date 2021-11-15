@@ -48,7 +48,7 @@ def handle_getSettings(data):
 @s_io.on('/setSettings')
 def handle_setSettings(data):
     print("receive set Settings %s" % data)
-    settings = json.loads(data)
+    #settings = json.loads(data)
     T1offset = data['T1offset']
     T2offset = data['T2offset']
     Tboiler = data['Tboiler']
