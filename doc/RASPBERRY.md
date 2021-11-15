@@ -87,5 +87,5 @@ Zend Engine v4.0.11, Copyright (c) Zend Technologies
 
     sudo groupadd www-data
     sudo gpasswd -a pi www-data
-    chown www-data:www-data /var/www
-    chmod 775 /var/www
+    sudo chown www-data:www-data /var/www
+    sudo chmod -R 775 /var/www
