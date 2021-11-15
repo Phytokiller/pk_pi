@@ -3,6 +3,7 @@ import eventlet
 import time
 
 
+
 print (socketio.__version__)
 sio = socketio.Server(cors_allowed_origins=[])
 
@@ -110,7 +111,7 @@ def handle_door(sid, data):
 
 @sio.on('/settings')
 def handle_settings(sid, data):
-    # T1offset:xx.xx, T2offset:xx.xx, Tboiler:xx.xx
+    # {T1offset:xx.xx, T2offset:xx.xx, Tboiler:xx.xx}
     print("receive settings %s " % data)
     sio.emit('settings', data) 
 

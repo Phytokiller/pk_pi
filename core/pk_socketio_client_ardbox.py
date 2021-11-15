@@ -2,6 +2,7 @@ import socketio
 import time
 import random
 import serial
+import json
 
 s_io = socketio.Client()
 
@@ -43,15 +44,15 @@ def handle_getSettings(ssid, data):
 @s_io.on('/setSettings')
 def handle_getSettings(ssid, data):
     print("receive set Settings %s" % data)
+    settings = json.loads(data)
+    print("receive t1 offset %s" % data[offset_t1])
+    sendSerial('!T1offset:%s\n' % data)
 
-    print("receive t1 offset %s" % data)
-    sendSerial('!T1offset:%s\n' %data)
-
-    print("receive t2 offset %s" % data)
+    print("receive t2 offset %s" % data[offset_t2])
     sendSerial('!T2offset:%s\n' %data)
 
-    print("receive tboiler %s " % data)
-    sendSerial('!Tboiler:%s\n' %data)
+#    print("receive tboiler %s " % data[offset_t2])
+#    sendSerial('!Tboiler:%s\n' %data)
 
 if __name__ == "__main__":
     print("start")
@@ -103,8 +104,8 @@ if __name__ == "__main__":
             T1offset = settingsRcv.split(",")[0].split(':')[1]
             T2offset = settingsRcv.split(",")[1].split(':')[1]
             Tboiler = settingsRcv.split(",")[2].split(':')[1]
-            print("EMIT /setSettings : T1offset : %s, T2offset :%s, Tboiler : %s" % (T1offset, T2offset, Tboiler))
-            s_io.emit('/setSettings', {
+            print("EMIT /settings : T1offset : %s, T2offset :%s, Tboiler : %s" % (T1offset, T2offset, Tboiler))
+            s_io.emit('/settings', {
                 'T1offset': T1offset,
                 'T2offset': T2offset,
                 'Tboiler' : Tboiler
