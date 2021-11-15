@@ -76,8 +76,8 @@ if __name__ == "__main__":
             boilerState = False
             if boilerRcv == "1" :
                 boilerState = True
+            print("EMIT : boiler:%s" % boilerState)
             s_io.emit('/boiler', {
-                print("EMIT : 'boiler:'%s" % boilerState)
                 'boiler': boilerState
             })
         elif line.startswith('door') :
@@ -85,8 +85,8 @@ if __name__ == "__main__":
             doorState = False
             if doorRcv == "1" :
                 doorState = True
+            print("EMIT : door:%s" % boilerState)
             s_io.emit('/door', {
-                print("EMIT : 'door:'%s" % boilerState)
                 'door': doorState
             })
 
