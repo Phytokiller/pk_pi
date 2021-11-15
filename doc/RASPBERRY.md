@@ -55,7 +55,7 @@ sudo apt install -y lsb-release apt-transport-https ca-certificates wget && sudo
 ```
 
 ```
-sudo apt-get update
+sudo apt update
 ```
 
 ```
