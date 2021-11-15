@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\User;
+use App\Models\Palette;
 use App\Models\Bath;
 
 use Carbon\Carbon;
@@ -32,6 +33,7 @@ class AccountController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
+
         // Update Users from manager
         $ids = [];
 
@@ -53,6 +55,11 @@ class AccountController extends Controller
         $this->settings->account_id = $account->id;
         $this->settings->user_id = $account->users()->first()->id;
         $this->settings->update();
+
+        // Upsert palettes from manager
+        Palette::upsert($request->palettes, 
+            ['id'], ['account_id', 'number', 'created_at', 'updated_at', 'deleted_at']
+        );
 
         // Update Baths from manager (deleted, etc)
         Bath::upsert($request->baths, 
