@@ -74,7 +74,7 @@ if __name__ == "__main__":
         elif line.startswith('boiler') :
             boilerRcv = line.split(':')[1]
             boilerState = False
-            print(boilerRcv)
+            print(bytes(boilerRcv, 'utf-8'))
             if boilerRcv == "1\n" :
                 boilerState = True
             print("EMIT : boiler:%s" % boilerState)
