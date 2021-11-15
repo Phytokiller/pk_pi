@@ -35,10 +35,12 @@ def sendSerial(message) :
 @s_io.on('/alarm')
 def handle_alarm(data):
     print("receive alarm %s" % data)
-    if (data['alarm']) :
-        sendSerial('!alarm:1\n')
-    else :
-        sendSerial('!alarm:0\n')
+    alarmTemp = data['temp']
+    alarmTimeout = data['timeout']
+    if (alarmTemp) :
+        sendSerial('!alarm\n')
+    if (alarmTimeout)
+        sendSerial('!timeout\n')
 
 @s_io.on('/getSettings')
 def handle_getSettings(data):
@@ -47,13 +49,13 @@ def handle_getSettings(data):
 
 @s_io.on('/setSettings')
 def handle_setSettings(data):
-    print("receive set Settings %s" % data)
+    #print("receive set Settings %s" % data)
     T1offset = data['T1offset']
     T2offset = data['T2offset']
     Tboiler = data['Tboiler']
-    print("receive t1 offset %s" % T1offset)
+    print("receive t1 offset %s" % T1offset, end = '')
     sendSerial('!T1offset:%s\n' % T1offset)
-    print("receive t2 offset %s" % T2offset)
+    print("receive t2 offset %s" % T2offset, end = '')
     sendSerial('!T2offset:%s\n' % T2offset)
     print("receive tboiler %s " % Tboiler)
     sendSerial('!Tboiler:%s\n' % Tboiler)
@@ -103,8 +105,6 @@ if __name__ == "__main__":
                 'door': doorState
             })
         elif line.startswith('settings:') :
-            # {T1offset:xx.xx,T2offset:xx.xx,Tboiler:xx.xx}
-            print(line[9:])
             data = json.loads(line[9:])
             T1offset = data['T1offset']
             T2offset = data['T2offset']
