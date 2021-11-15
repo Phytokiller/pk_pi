@@ -41,7 +41,7 @@ def handle_alarm(sid, data):
         sendSerial('!alarm:0\n')
 
 @s_io.on('/getSettings')
-def handle_getSettings(sid, data):
+def handle_getSettings(data):
     print("receive get settings")
     sendSerial('!getSettings\n')
 
