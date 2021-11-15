@@ -89,3 +89,10 @@ Zend Engine v4.0.11, Copyright (c) Zend Technologies
     sudo gpasswd -a pi www-data
     sudo chown -R pi:www-data /var/www
     sudo chmod -R 775 /var/www
+    
+#### First install
+
+    cd /var/www/html
+    git clone 
+    cd pk_pi/wwww
+    composer install --no-interaction --prefer-dist --optimize-autoloader
