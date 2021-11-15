@@ -39,7 +39,7 @@ def handle_alarm(data):
     alarmTimeout = data['timeout']
     if (alarmTemp) :
         sendSerial('!alarm\n')
-    if (alarmTimeout)
+    if (alarmTimeout) :
         sendSerial('!timeout\n')
 
 @s_io.on('/getSettings')
