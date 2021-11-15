@@ -47,7 +47,7 @@ class PK {
                 $this->settings->update();
                 return $account;
             } else {
-                return redirect()->route('noaccount');
+                return abort(403);
             }
         }
     }
@@ -61,11 +61,12 @@ class PK {
         } else {
 
             $user = $this->currentAccount()->users()->first();
-            $this->settings->user_id = $user->id;
-            $this->settings->update();
-
-            dd($user);
-
+            
+            if($user) {
+                $this->settings->user_id = $user->id;
+                $this->settings->update();
+            }
+             
             return $user;
 
         }

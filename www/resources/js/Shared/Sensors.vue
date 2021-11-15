@@ -84,6 +84,10 @@ export default {
           this.boiler = data.boiler;
       });
 
+      this.sockets.subscribe('/syncFromManager', (data) => {
+          this.synchronize(data);
+      });
+
     },
 
     stopListening() {
@@ -91,6 +95,25 @@ export default {
       this.sockets.unsubscribe('sensors');
       this.sockets.unsubscribe('door');
       this.sockets.unsubscribe('boiler');
+      this.sockets.unsubscribe('/syncFromManager');
+
+    },
+
+    synchronize(data) {
+
+      console.log(data);
+
+      // Push data on device
+      fetch(route('api.synchronize'), {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.$socket.emit('syncFromDevice', data);
+      });
 
     },
 
