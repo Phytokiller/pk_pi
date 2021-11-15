@@ -41,12 +41,12 @@ def handle_alarm(sid, data):
         sendSerial('!alarm:0\n')
 
 @s_io.on('/getSettings')
-def handle_getSettings(ssid, data):
+def handle_getSettings(sid, data):
     print("receive get settings")
     sendSerial('!getSettings\n')
 
 @s_io.on('/setSettings')
-def handle_setSettings(ssid, data):
+def handle_setSettings(sid, data):
     print("receive set Settings %s" % data)
     settings = json.loads(data)
     T1offset = data['T1offset']
