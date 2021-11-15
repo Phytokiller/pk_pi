@@ -62,7 +62,7 @@
       this.$socket.emit('getSettings', {getSettings: true});
 
       this.sockets.subscribe('settings', (data) => {
-          
+
           this.form.T1offset = parseFloat(data.T1offset);
           this.form.T2offset = parseFloat(data.T2offset);
           this.form.Tboiler = parseFloat(data.Tboiler);
@@ -77,7 +77,7 @@
         this.form.put(route('settings.update'), {
           preserveScroll: true,
           onSuccess: () => {
-            this.$socket.emit('setSettings', this.form.data);
+            this.$socket.emit('setSettings', this.form);
           },
         });
 
