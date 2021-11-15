@@ -93,6 +93,12 @@ export default {
         this.bath_temperature = data.Tboiler;
       });
 
+      this.sockets.subscribe('settings', (data) => {
+        this.bath_temperature = data.Tboiler;
+      });
+
+      this.$socket.emit('getSettings', {getSettings: true});
+
     },
 
     stopListening() {

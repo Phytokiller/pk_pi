@@ -204,7 +204,7 @@
                   borderDash: [10,5],
                   pointRadius: 0,
                   fill: true,
-                  tension: 0.4,
+                  tension: 0,
               }
             ]
           },
