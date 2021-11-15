@@ -26,7 +26,7 @@ def try_socket_connection(socket_io_client: socketio.Client):
 ##############
 @s_io.on('/start')
 def handle_start(data):
-    print("start")
+    print("start received")
     os.system('omxplayer ~/pk_pi/sound/python_sounds_start.mp3')
 
 ##############
