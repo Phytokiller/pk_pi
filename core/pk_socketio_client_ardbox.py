@@ -87,7 +87,7 @@ if __name__ == "__main__":
             print(bytes(doorRcv, 'utf-8'))
             if doorRcv == "1" :
                 doorState = True
-            print("EMIT : door:%s" % boilerState)
+            print("EMIT : door:%s" % doorState)
             s_io.emit('/door', {
                 'door': doorState
             })
