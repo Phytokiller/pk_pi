@@ -6,7 +6,7 @@ Description=Browser for phytokiller
 Environment="DISPLAY=:0"
 Environment="XAUTHORITY=/home/pi/.Xauthority"
 #ExecStartPre=sh /var/www/html/pk_pi/startup/pk_update.sh
-ExecStart=chromium-browser --kiosk --disable-features=Translate phytokiller.local
+ExecStart=chromium-browser --kiosk --disable-features=Translate http://127.0.0.1:80
 #ExecStart=chromium-browser phytokiller.local
 Restart=always
 RestartSec=10
