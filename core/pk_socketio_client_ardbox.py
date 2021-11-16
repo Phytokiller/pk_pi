@@ -21,13 +21,7 @@ def try_socket_connection(socket_io_client: socketio.Client):
         print("PKPY connected socket server with SID %s and transport %s" %
             (socket_io_client.sid, socket_io_client.transport))
 
-##############
-# Sound
-##############
-@s_io.on('/start')
-def handle_start(data):
-    print("start received")
-    os.system('omxplayer ~/pk_pi/sound/python_sounds_start.mp3')
+
 
 ##############
 # Send message RS-485

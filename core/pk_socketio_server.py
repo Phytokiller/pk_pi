@@ -1,6 +1,7 @@
 import socketio
 import eventlet
 import time
+import os
 
 
 
@@ -58,6 +59,7 @@ def handle_processing(sid, data):
     # Return true each time a bath is starting
     print("Bath started %s" % data)
     sio.emit('/start', data, broadcast=True, include_self=False)
+    os.system('omxplayer ~/pk_pi/sound/python_sounds_start.mp3')
 
 @sio.on('stop')
 def handle_processing(sid, data):
@@ -70,6 +72,10 @@ def handle_processing(sid, data):
     # Return true if an error has been detected while processing bath
     print("Alarm %s" % data)
     sio.emit('/alarm', data, broadcast=True, include_self=False)
+    if (data['temp']) :
+        os.system('omxplayer ~/pk_pi/python_sounds_end_timer.mp3')
+    if (data['timeout']) :
+        os.system('omxplayer ~/pk_pi/python_sounds_end_timer.mp3')
 
 @sio.on('getSettings')
 def handle_processing(sid, data):
