@@ -26,7 +26,7 @@
 
       <span class="text-sm animate-pulse">Traitement en cours...</span>
 
-      <button type="button" @click="stop" class="block w-full mt-6 border-t bg-red-400 border-red-600 text-white font-bold px-4 py-2 text-4xl uppercase tracking-wider focus:outline-none hover:bg-blue-2000">Arret manuel</button>
+      <button type="button" @click="stop" class="block w-full mt-6 border-t bg-red-400 border-red-600 text-white font-bold px-4 py-6 text-4xl uppercase tracking-wider focus:outline-none hover:bg-blue-2000">Arret manuel</button>
     </div>
 
   </div>

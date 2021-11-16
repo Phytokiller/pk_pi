@@ -68,7 +68,7 @@
 
     <div class="text-center" v-if="selected.length > 0">
       <span class="text-sm animate-pulse">En attente du capteur de déclenchement...</span>
-      <button type="button" @click="start" class="block w-full mt-6 border-t bg-green-400 border-green-600 text-white font-bold px-4 py-2 text-4xl uppercase tracking-wider focus:outline-none hover:bg-blue-2000"> Démarrage manuel</button>
+      <button type="button" @click="start" class="block w-full mt-6 border-t bg-green-400 border-green-600 text-white font-bold px-4 py-6 text-4xl uppercase tracking-wider focus:outline-none hover:bg-blue-2000"> Démarrage manuel</button>
     </div>
 
   </div>
