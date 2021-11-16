@@ -53,10 +53,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.$socket.emit('getStatus', true);
-  },
-
   sockets:  {
     connect: function() {
       console.log("socket connected");
