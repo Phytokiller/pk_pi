@@ -66,6 +66,7 @@ def handle_processing(sid, data):
     # Return true each time a bath was done
     print("Bath stopped %s" % data)
     sio.emit('/stop', data, broadcast=True, include_self=False)
+    os.system('omxplayer ~/pk_pi/sound/python_sounds_done.mp3')
 
 @sio.on('alarm')
 def handle_processing(sid, data):
