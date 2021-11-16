@@ -3,7 +3,7 @@
 
     <h1 class="text-2xl mb-4">Paramètres de la station</h1>
 
-    <div class="flex items-center mb-4">
+    <div class="flex items-center mb-4" v-if="settingsreceived">
 
       <div class="mr-2">
         <label class="block mb-2">Offset T1 (°C)</label>
@@ -17,12 +17,18 @@
 
     </div>
 
-    <div class="flex items-center mb-4">
+    <div class="flex items-center mb-4" v-if="settingsreceived">
 
       <div>
         <label class="block mb-2">Température chaudière</label>
         <vue-number-input v-model="form.Tboiler" :step="1" :min="0" :max="100" inline controls size="large"></vue-number-input>
       </div>
+
+    </div>
+
+    <div class="flex items-center mb-4" v-else>
+
+      <span class="text-sm animate-pulse">En attente des informations de la chaudière.</span>
 
     </div>
 
@@ -45,7 +51,7 @@
 
     </div>
 
-    <button @click="updateSettings" type="button" class="mt-4 p-3 bg-indigo-800 rounded text-white text-2xl">Mettre à jour</button>
+    <button v-if="settingsreceived" @click="updateSettings" type="button" class="mt-4 p-3 bg-indigo-800 rounded text-white text-2xl">Mettre à jour</button>
 
     <inertia-link :href="route('welcome')" class="mt-4 p-3 bg-gray-300 rounded text-2xl text-center">Fermer</inertia-link>
 
@@ -72,6 +78,7 @@
 
     data() {
       return {
+        settingsreceived: false,
         form: this.$inertia.form({
           T1offset: parseFloat(this.settings.offset_T1),
           T2offset: parseFloat(this.settings.offset_T1),
@@ -87,6 +94,8 @@
           this.form.T1offset = parseFloat(data.T1offset);
           this.form.T2offset = parseFloat(data.T2offset);
           this.form.Tboiler = parseFloat(data.Tboiler);
+          this.settingsreceived = true;
+
       });
 
       this.$socket.emit('getSettings', {getSettings: true});
