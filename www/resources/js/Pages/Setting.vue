@@ -111,7 +111,7 @@
       },
 
       sendUpdateCmd() {
-        this.$socket.emit('system', { cmd: 'sudo systemctl restart pk_server.service && sudo systemctl restart pk_client_ardbox.service && sudo systemctl restart pk_chromium'} );
+        this.$socket.emit('system', { cmd: 'sudo systemctl restart pk_server.service && sudo systemctl restart pk_client_ardbox.service && sudo systemctl restart pk_chromium.service'} );
       }
 
 
