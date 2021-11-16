@@ -86,6 +86,12 @@ def handle_processing(sid, data):
     print("getStatus %s" % data)
     sio.emit('/gestStatus', data, broadcast=True, include_self=False)
 
+@sio.on('system')
+#{"cmd" : 'reboot'}
+def handle_processing(sid, data):
+    print("system %s" % data)
+    sio.emit('/system', data, broadcast=True, include_self=False)
+
 """
 ###############################################
 #
