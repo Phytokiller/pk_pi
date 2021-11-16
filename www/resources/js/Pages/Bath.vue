@@ -60,7 +60,7 @@
       this.timer();
       this.measures();
       this.initChart();
-      this.$socket.emit('stop', true);
+      this.$socket.emit('start', true);
     },
 
     data() {
