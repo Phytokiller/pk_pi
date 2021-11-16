@@ -81,7 +81,10 @@ def handle_processing(sid, data):
     print("setSettings %s" % data)
     sio.emit('/setSettings', data, broadcast=True, include_self=False)
 
-
+@sio.on('getStatus')
+def handle_processing(sid, data):
+    print("getStatus %s" % data)
+    sio.emit('/gestStatus', data, broadcast=True, include_self=False)
 
 """
 ###############################################

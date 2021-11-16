@@ -57,6 +57,11 @@ def handle_getSettings(data):
     print("receive get settings")
     sendSerial('!getSettings\n')
 
+@s_io.on('/getStatus')
+def handle_getStatus(data):
+    print("receive get status")
+    sendSerial('!getStatus\n')
+
 @s_io.on('/setSettings')
 def handle_setSettings(data):
     #print("receive set Settings %s" % data)
