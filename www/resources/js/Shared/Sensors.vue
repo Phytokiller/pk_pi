@@ -72,8 +72,8 @@ export default {
 
       this.sockets.subscribe('sensors', (data) => {
           this.sensors = data;
-          this.errors.T1 = (this.sensors.T1 > this.bath_temperature + 5 || this.sensors.T1 < this.bath_temperature - 5) ? true : false;
-          this.errors.T2 = (this.sensors.T2 > this.bath_temperature + 5 || this.sensors.T2 < this.bath_temperature - 5) ? true : false;
+          this.errors.T1 = (this.sensors.T1 > this.bath_temperature + 2 || this.sensors.T1 < this.bath_temperature - 2) ? true : false;
+          this.errors.T2 = (this.sensors.T2 > this.bath_temperature + 2 || this.sensors.T2 < this.bath_temperature - 2) ? true : false;
           if(this.errors.T1 || this.errors.T1) this.$socket.emit('alarm', {temp: true, timeout: false});
       });
 
