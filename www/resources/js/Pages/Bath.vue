@@ -221,6 +221,7 @@
                   beginAtZero: true,
                   position: 'right',
                   ticks: {
+                      display: false,
                       max: 1,
                       min: 0
                   }
