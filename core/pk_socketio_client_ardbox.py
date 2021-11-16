@@ -92,45 +92,48 @@ if __name__ == "__main__":
 
     while True :
         #listen Serial and send to socketserver
-        line = ser.readline()
-        line = line.decode("utf-8")
-        line = line[:-1] # remove '\n' at the end
-        if line.startswith('sensors') :
-            T1 = line.split(':')[1]
-            T2 = line.split(':')[2]
-            s_io.emit('/sensors', {
-                'T1': T1,
-                'T2': T2
-            })
-        elif line.startswith('boiler') :
-            boilerRcv = line.split(':')[1]
-            boilerState = False
-            if boilerRcv == "1" :
-                boilerState = True
-            #print("EMIT : boiler:%s" % boilerState)
-            s_io.emit('/boiler', {
-                'boiler': boilerState
-            })
-        elif line.startswith('door') :
-            doorRcv = line.split(':')[1]
-            doorState = False
-            if doorRcv == "1" :
-                doorState = True
-            #print("EMIT : door:%s" % doorState)
-            s_io.emit('/door', {
-                'door': doorState
-            })
-        elif line.startswith('settings:') :
-            data = json.loads(line[9:])
-            T1offset = data['T1offset']
-            T2offset = data['T2offset']
-            Tboiler = data['Tboiler']
-            print("EMIT /settings : T1offset : %s, T2offset :%s, Tboiler : %s" % (T1offset, T2offset, Tboiler))
-            s_io.emit('/settings', {
-                'T1offset': T1offset,
-                'T2offset': T2offset,
-                'Tboiler' : Tboiler
-            })
+        try :
+            line = ser.readline()
+            line = line.decode("utf-8")
+            line = line[:-1] # remove '\n' at the end
+            if line.startswith('sensors') :
+                T1 = line.split(':')[1]
+                T2 = line.split(':')[2]
+                s_io.emit('/sensors', {
+                    'T1': T1,
+                    'T2': T2
+                })
+            elif line.startswith('boiler') :
+                boilerRcv = line.split(':')[1]
+                boilerState = False
+                if boilerRcv == "1" :
+                    boilerState = True
+                #print("EMIT : boiler:%s" % boilerState)
+                s_io.emit('/boiler', {
+                    'boiler': boilerState
+                })
+            elif line.startswith('door') :
+                doorRcv = line.split(':')[1]
+                doorState = False
+                if doorRcv == "1" :
+                    doorState = True
+                #print("EMIT : door:%s" % doorState)
+                s_io.emit('/door', {
+                    'door': doorState
+                })
+            elif line.startswith('settings:') :
+                data = json.loads(line[9:])
+                T1offset = data['T1offset']
+                T2offset = data['T2offset']
+                Tboiler = data['Tboiler']
+                print("EMIT /settings : T1offset : %s, T2offset :%s, Tboiler : %s" % (T1offset, T2offset, Tboiler))
+                s_io.emit('/settings', {
+                    'T1offset': T1offset,
+                    'T2offset': T2offset,
+                    'Tboiler' : Tboiler
+                })
+        except : 
+            print("error receiving sensor")
 
 
             

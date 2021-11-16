@@ -74,9 +74,9 @@ def handle_processing(sid, data):
     print("Alarm %s" % data)
     sio.emit('/alarm', data, broadcast=True, include_self=False)
     if (data['temp']) :
-        os.system('omxplayer ~/pk_pi/python_sounds_end_timer.mp3')
+        os.system('omxplayer ~/pk_pi/sound/python_sounds_end_timer.mp3')
     if (data['timeout']) :
-        os.system('omxplayer ~/pk_pi/python_sounds_end_timer.mp3')
+        os.system('omxplayer ~/pk_pi/sound/python_sounds_end_timer.mp3')
 
 @sio.on('getSettings')
 def handle_processing(sid, data):
