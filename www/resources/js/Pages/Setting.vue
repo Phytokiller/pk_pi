@@ -21,7 +21,7 @@
 
       <div>
         <label class="block mb-2">Température chaudière</label>
-        <vue-number-input v-model="form.Tboiler" :step="1" :min="0" :max="100" inline controls size="large"></vue-number-input>
+        <vue-number-input v-model="form.Tboiler" :step="0.1" :min="0" :max="100" inline controls size="large"></vue-number-input>
       </div>
 
     </div>
