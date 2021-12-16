@@ -4,11 +4,11 @@
     <div class="flex flex-col text-2xl" v-if="websocketStatus && sensors">
 
         <div class="py-4 px-4 border-b border-indigo-400" :class="{'bg-red-400 animate-pulse': errors.T1}">
-          T1:  {{ sensors.T1 }}°C
+          T1:  {{ sensors.T1 | formatNumber }}°C
         </div>
 
         <div class="py-4 px-4 border-b border-indigo-400" :class="{'bg-red-400 animate-pulse': errors.T2}">
-          T2:  {{ sensors.T2 }}°C
+          T2:  {{ sensors.T2 | formatNumber }}°C
         </div>
 
         <div class="py-4 px-4 border-b border-indigo-400">
@@ -63,6 +63,14 @@ export default {
       console.log("socket disconnected");
       this.websocketStatus = false;
       this.stopListening();
+    }
+  },
+
+  filters: {
+    formatNumber: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.toFixed(1);
     }
   },
 
