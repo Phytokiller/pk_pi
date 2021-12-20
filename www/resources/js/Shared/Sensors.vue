@@ -76,13 +76,49 @@ export default {
 
   methods: {
 
+    checkAlarms() {
+
+      let limit = 2;
+
+      this.errors.T1 = this.errors.temp.toHigh = (this.sensors.T1 > this.bath_temperature + limit) ? true : false;
+      this.errors.T2 = this.errors.temp.toHigh = (this.sensors.T1 > this.bath_temperature + limit) ? true : false;
+      this.errors.temp.toLow = (this.sensors.T2 < this.bath_temperature - limit) ? true : false;
+      this.errors.temp.toLow = (this.sensors.T2 < this.bath_temperature - limit) ? true : false;
+      this.errors.temp.diff = ((this.sensors.T1 - this.sensors.T2) > limit || (this.sensors.T1 - this.sensors.T2) < limit) ? true : false;
+
+      if(!Object.values(this.errors.temp).every(item => item === false)) {
+        this.$socket.emit('alarm', {
+          temp: {
+            toHigh: this.errors.temp.toHigh, 
+            toLow: this.errors.temp.toLow, 
+            diff: this.errors.temp.diff, 
+          },
+        });
+      }
+
+    },
+
     listen() {
 
       this.sockets.subscribe('sensors', (data) => {
           this.sensors = data;
+          this.checkAlarms();
+/*
           this.errors.T1 = (this.sensors.T1 > this.bath_temperature + 2 || this.sensors.T1 < this.bath_temperature - 2) ? true : false;
           this.errors.T2 = (this.sensors.T2 > this.bath_temperature + 2 || this.sensors.T2 < this.bath_temperature - 2) ? true : false;
-          if(this.errors.T1 || this.errors.T1) this.$socket.emit('alarm', {temp: true, timeout: false});
+          if(this.errors.T1 || this.errors.T1) {
+            this.$socket.emit('alarm', {
+              temp: {
+                toHigh: true, 
+                toLow: true, 
+                diff: true, 
+              },
+              bath: {
+                timeout: false
+              }
+            });
+          }
+*/
       });
 
       this.sockets.subscribe('door', (data) => {
