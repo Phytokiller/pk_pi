@@ -67,10 +67,9 @@ def handle_alarm(data):
 
 @s_io.on('/timeout')
 def handle_timeout(data):
-    alarmTimeout = data['timeout']
-    if (alarmTimeout) :
-        print("send Timeout")
-        sendSerial('!timeout\n')
+
+    print("receive Timeout")
+    sendSerial('!timeout\n')
 
 @s_io.on('/getSettings')
 def handle_getSettings(data):
