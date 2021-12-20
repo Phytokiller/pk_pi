@@ -4,11 +4,11 @@
     <div class="flex flex-col text-2xl" v-if="websocketStatus && sensors">
 
         <div class="py-4 px-4 border-b border-indigo-400" :class="{'bg-red-400 animate-pulse': errors.T1}">
-          T1:  {{ sensors.T1 | formatNumber }}°C
+          T1:  {{ sensors.T1 }}°C
         </div>
 
         <div class="py-4 px-4 border-b border-indigo-400" :class="{'bg-red-400 animate-pulse': errors.T2}">
-          T2:  {{ sensors.T2 | formatNumber }}°C
+          T2:  {{ sensors.T2 }}°C
         </div>
 
         <div class="py-4 px-4 border-b border-indigo-400">
@@ -67,12 +67,6 @@ export default {
     }
   },
 
-  filters: {
-    formatNumber: function (value) {
-      return parseFloat(value).toFixed(1);
-    }
-  },
-
   methods: {
 
     checkAlarms() {
@@ -103,22 +97,6 @@ export default {
       this.sockets.subscribe('sensors', (data) => {
           this.sensors = data;
           this.checkAlarms();
-/*
-          this.errors.T1 = (this.sensors.T1 > this.bath_temperature + 2 || this.sensors.T1 < this.bath_temperature - 2) ? true : false;
-          this.errors.T2 = (this.sensors.T2 > this.bath_temperature + 2 || this.sensors.T2 < this.bath_temperature - 2) ? true : false;
-          if(this.errors.T1 || this.errors.T1) {
-            this.$socket.emit('alarm', {
-              temp: {
-                toHigh: true, 
-                toLow: true, 
-                diff: true, 
-              },
-              bath: {
-                timeout: false
-              }
-            });
-          }
-*/
       });
 
       this.sockets.subscribe('door', (data) => {
