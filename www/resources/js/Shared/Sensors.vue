@@ -49,6 +49,7 @@ export default {
       errors: {
         T1: false,
         T2: false,
+        temp: {}, 
       }
     }
   },
@@ -68,8 +69,6 @@ export default {
 
   filters: {
     formatNumber: function (value) {
-      if (!value) return ''
-      value = value.toString()
       return value.toFixed(1);
     }
   },
@@ -80,8 +79,11 @@ export default {
 
       let limit = 2;
 
-      this.errors.T1 = this.errors.temp.toHigh = (this.sensors.T1 > this.bath_temperature + limit) ? true : false;
-      this.errors.T2 = this.errors.temp.toHigh = (this.sensors.T1 > this.bath_temperature + limit) ? true : false;
+      this.errors.T1 = (this.sensors.T1 > this.bath_temperature + limit);
+      this.errors.T2 = (this.sensors.T1 > this.bath_temperature + limit);
+
+      this.errors.temp.toHigh = (this.errors.T1 || this.errors.T2);
+
       this.errors.temp.toLow = (this.sensors.T2 < this.bath_temperature - limit) ? true : false;
       this.errors.temp.toLow = (this.sensors.T2 < this.bath_temperature - limit) ? true : false;
       this.errors.temp.diff = ((this.sensors.T1 - this.sensors.T2) > limit || (this.sensors.T1 - this.sensors.T2) < limit) ? true : false;
