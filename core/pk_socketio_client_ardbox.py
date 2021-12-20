@@ -63,14 +63,14 @@ def handle_alarm(data):
         sendSerial('!alarmDiff 1\n')
     else :
         sendSerial('!alarmDiff 0\n')
-    try :
-        alarmTimeout = data['timeout']
-        if (alarmTimeout) :
-            print("send Timeout")
-            sendSerial('!timeout\n')
-    except :
-        #no timeout received
-        pass
+    
+
+@s_io.on('/timeout')
+def handle_timeout(data):
+    alarmTimeout = data['timeout']
+    if (alarmTimeout) :
+        print("send Timeout")
+        sendSerial('!timeout\n')
 
 @s_io.on('/getSettings')
 def handle_getSettings(data):

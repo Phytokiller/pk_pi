@@ -78,6 +78,12 @@ def handle_processing(sid, data):
     #if (data['timeout']) :
     #    os.system('omxplayer ~/pk_pi/sound/python_sounds_end_timer.mp3')
 
+@sio.on('timeout')
+def handle_processing(sid, data):
+    # Return true if an error has been detected while processing bath
+    print("Timeout %s" % data)
+    sio.emit('/timeout', data, broadcast=True, include_self=False)
+
 @sio.on('getSettings')
 def handle_processing(sid, data):
     print("getSettings %s" % data)
