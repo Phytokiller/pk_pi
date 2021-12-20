@@ -1,3 +1,7 @@
+sudo chmod -R 777 /var/www/html/pk_pi/www/bootstrap/cache
+sudo chmod -R 777 /var/www/html/pk_pi/www/storage
+
+
 cd /var/www/html/pk_pi
 
 git pull origin master
