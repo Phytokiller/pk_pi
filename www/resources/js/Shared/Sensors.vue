@@ -86,15 +86,13 @@ export default {
       this.errors.temp.toLow = (this.sensors.T2 < this.bath_temperature - limit) ? true : false;
       this.errors.temp.diff = ((this.sensors.T1 - this.sensors.T2) > limit || (this.sensors.T1 - this.sensors.T2) < limit) ? true : false;
 
-      if(!Object.values(this.errors.temp).every(item => item === false)) {
-        this.$socket.emit('alarm', {
-          temp: {
-            toHigh: this.errors.temp.toHigh, 
-            toLow: this.errors.temp.toLow, 
-            diff: this.errors.temp.diff, 
-          },
-        });
-      }
+      this.$socket.emit('alarm', {
+        temp: {
+          toHigh: this.errors.temp.toHigh, 
+          toLow: this.errors.temp.toLow, 
+          diff: this.errors.temp.diff,
+        },
+      });
 
     },
 
