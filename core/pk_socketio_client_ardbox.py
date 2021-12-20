@@ -43,7 +43,7 @@ def handle_alarm(data):
         ["diff"] : true/false}
     '''
     print("receive alarm %s" % data)
-    alarmTimeout = data['timeout']
+    
     alarmTempHigh = data['temp']['toHigh']
     alarmTempLow = data['temp']['toLow']
     alarmTempDiff = data['temp']['diff']
@@ -63,9 +63,14 @@ def handle_alarm(data):
         sendSerial('!alarmDiff 1\n')
     else :
         sendSerial('!alarmDiff 0\n')
-    if (alarmTimeout) :
-        print("send Timeout")
-        sendSerial('!timeout\n')
+    try :
+        alarmTimeout = data['timeout']
+        if (alarmTimeout) :
+            print("send Timeout")
+            sendSerial('!timeout\n')
+    except :
+        #no timeout received
+        pass
 
 @s_io.on('/getSettings')
 def handle_getSettings(data):
