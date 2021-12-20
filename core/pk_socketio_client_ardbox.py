@@ -36,12 +36,33 @@ def sendSerial(message) :
 ##############
 @s_io.on('/alarm')
 def handle_alarm(data):
+    ''' {["timeout"] : true/false}
+    {["temp"] : 
+        ["toHigh"] : true/false}
+        ["toLow"] : true/false}
+        ["diff"] : true/false}
+    '''
     print("receive alarm %s" % data)
-    alarmTemp = data['temp']
     alarmTimeout = data['timeout']
-    if (alarmTemp) :
-        print("send Alarm")
-        sendSerial('!alarm\n')
+    alarmTempHigh = data['temp']['toHigh']
+    alarmTempLow = data['temp']['toLow']
+    alarmTempDiff = data['temp']['diff']
+
+    if (alarmTempHigh) :
+        print("send Alarm High")
+        sendSerial('!alarmHigh 1\n')
+    else :
+        sendSerial('!alarmHigh 0\n')
+    if (alarmTempLow) :
+        print("send Alarm Low")
+        sendSerial('!alarmLow 1\n')
+    else :
+        sendSerial('!alarmLow 0\n')
+    if (alarmTempDiff) :
+        print("send Alarm Diff")
+        sendSerial('!alarmDiff 1\n')
+    else :
+        sendSerial('!alarmDiff 0\n')
     if (alarmTimeout) :
         print("send Timeout")
         sendSerial('!timeout\n')
