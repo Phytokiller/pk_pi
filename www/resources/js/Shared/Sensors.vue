@@ -69,7 +69,7 @@ export default {
 
   filters: {
     formatNumber: function (value) {
-      return value.toFixed(1);
+      return parseFloat(value).toFixed(1);
     }
   },
 
