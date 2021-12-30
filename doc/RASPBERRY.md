@@ -2,6 +2,7 @@
 
 > **ATTENTION**: Les écrans Chipsee avec pi intégré ont une distribution spéciale. **Ne pas faire de mise à jour.**
 
+Mac address eth0 Pi Vitipole : e4:5f:01:30:57:35
 ## Configuration
 
 ### SSH
