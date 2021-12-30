@@ -36,6 +36,15 @@ Le port USB-C est maintenant en host mode. L'alimentation se fait desormais via 
 3. Select `S4 Hostname`
 4. Type `phytokiller`
 
+### Clock
+Insérer la pile (CR1220)
+1. `sudo apt-get -y remove fake-hwclock`
+2. To set current date : `sudo timedatectl set-time '2021:12:30 09:48:00'`
+3. To set rtc from current date : `sudo hwclock -w`
+4. To set date from rtc : `sudo hwclock -s`
+5. Automatisation de la date depuis RTC : `sudo nano /etc/rc.local` : add  `sudo hwclock -s`
+6. Utile : `timedatectl`
+
 ## Installation
 
 ### Webserver
