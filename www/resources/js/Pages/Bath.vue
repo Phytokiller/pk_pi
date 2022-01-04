@@ -103,6 +103,13 @@
 
       },
 
+      stopListening() {
+        console.log("Bath : Stop listening");
+        this.sockets.unsubscribe('sensors');
+        this.sockets.unsubscribe('door');
+        this.sockets.unsubscribe('boiler');
+      },
+
       updateChart() {
         this.chart.data.labels.push(this.elapsed_time);
         this.chart.data.datasets[0].data.push(this.sensors.T1);
@@ -169,6 +176,7 @@
             onSuccess: () => {
               this.$socket.emit('stop', true);
               this.$store.commit('running', false);
+              this.stopListening();
               console.log('Bath stopped.');
             }
           });
@@ -239,12 +247,12 @@
 
 
     },
-/*
+
     beforeDestroy() {
       if(this.timerInterval || this.measuresInterval)
         this.stop();
     },
-*/
+
 
   }
 </script>

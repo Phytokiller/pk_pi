@@ -126,10 +126,19 @@
 
       sendUpdateCmd() {
         this.$socket.emit('system', { cmd: 'sudo systemctl restart pk_server.service && sudo systemctl restart pk_client_ardbox.service && sudo systemctl restart pk_chromium.service'} );
-      }
+      },
+
+      stopListening() {
+        console.log("Setttings : Stop listening");
+        this.sockets.unsubscribe('settings');
+      },
 
 
-    }
+    },
+
+    beforeDestroy() {
+      this.stopListening();
+    },
 
   }
 
