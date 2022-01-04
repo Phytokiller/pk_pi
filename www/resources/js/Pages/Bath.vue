@@ -239,12 +239,12 @@
 
 
     },
-
+/*
     beforeDestroy() {
       if(this.timerInterval || this.measuresInterval)
         this.stop();
     },
-
+*/
 
   }
 </script>
