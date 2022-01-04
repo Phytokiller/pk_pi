@@ -1,7 +1,7 @@
 sudo addgroup www-data
 sudo usermod -a -G www-data pi
-sudo chown -R pi:www-data /var/www
-sudo chmod -R 755 /var/www/html/pk_pi/www/database/database.sqlite
+sudo chown -R :www-data /var/www
+sudo chmod -R 775 /var/www/html/pk_pi/www/database/database.sqlite
 sudo chmod -R 777 /var/www/html/pk_pi/www/bootstrap/cache
 sudo chmod -R 777 /var/www/html/pk_pi/www/storage
 
