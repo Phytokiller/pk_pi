@@ -1,5 +1,7 @@
 # Default server configuration
 
+sudo vi /etc/nginx/sites-enabled/default
+
         server {
                 listen 80 default_server;
                 listen [::]:80 default_server;
