@@ -60,7 +60,7 @@
           <div class="bg-indigo-800 flex-shrink-0 w-56 p-2 overflow-y-auto flex flex-col">
             <sensors class="flex-1"/>
             <clock class="text-white text-center"/>
-            <inertia-link :href="route('settings')" class="text-white py-4 px-4 mt-4 border-t border-indigo-400">
+            <inertia-link v-if="!running" :href="route('settings')" class="text-white py-4 px-4 mt-4 border-t border-indigo-400">
               <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
               </svg> Paramètres
@@ -94,6 +94,12 @@ export default {
     Logo,
     Sensors,
     Clock,
+  },
+
+  computed: {
+    running () {
+      return this.$store.state.running
+    }
   },
 
 /*
