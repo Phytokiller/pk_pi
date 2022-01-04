@@ -1,7 +1,7 @@
 import socketio
 import time
 import random
-from pynput import keyboard
+#from pynput import keyboard
 
 s_io = socketio.Client()
 Tmin = 49.00
@@ -30,7 +30,7 @@ def try_socket_connection(socket_io_client: socketio.Client):
         print("PKPY connected socket server with SID %s and transport %s" %
             (socket_io_client.sid, socket_io_client.transport))
 
-
+'''
 #Listen keyboard
 def on_press(key):
     try:
@@ -43,7 +43,7 @@ listener = keyboard.Listener(
     on_press=on_press,
     on_release=on_release)
 listener.start()
-
+'''
 
 if __name__ == "__main__":
     print("start")
