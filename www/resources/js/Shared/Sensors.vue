@@ -56,12 +56,12 @@ export default {
 
   sockets:  {
     connect: function() {
-      console.log("socket connected");
+      console.log("Socket connected from Sensors component");
       this.websocketStatus = true;
       this.listen();
     },
     disconnect: function() {
-      console.log("socket disconnected");
+      console.log("Socket disconnected from Sensors component");
       this.websocketStatus = false;
       this.stopListening();
     }
@@ -100,6 +100,8 @@ export default {
 
     listen() {
 
+      console.log("Start listening from Sensors component");
+
       this.sockets.subscribe('sensors', (data) => {
           this.sensors = data;
           this.checkAlarms();
@@ -131,6 +133,8 @@ export default {
 
     stopListening() {
 
+      console.log("Stop listening from Sensors component");
+
       this.sockets.unsubscribe('sensors');
       this.sockets.unsubscribe('door');
       this.sockets.unsubscribe('boiler');
@@ -141,6 +145,8 @@ export default {
     },
 
     synchronize(data) {
+
+      console.log("Start synchro from Sensors");
 
       console.log(data);
 
@@ -154,6 +160,7 @@ export default {
       .then(data => {
         console.log(data);
         this.$socket.emit('syncFromDevice', data);
+        console.log("Stop synchro from Sensors");
       });
 
     },
