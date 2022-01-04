@@ -91,6 +91,8 @@
 
       this.sockets.subscribe('settings', (data) => {
 
+          console.log('Settings : subscribe to settings channel.');
+
           this.form.T1offset = parseFloat(data.T1offset);
           this.form.T2offset = parseFloat(data.T2offset);
           this.form.Tboiler = parseFloat(data.Tboiler);
@@ -98,6 +100,7 @@
 
       });
 
+      console.log('Settings : get settings from arduino.');
       this.$socket.emit('getSettings', {getSettings: true});
 
     },
@@ -106,9 +109,11 @@
 
       updateSettings() {
 
+        console.log('Settings : update settings.');
         this.form.put(route('settings.update'), {
           preserveScroll: true,
           onSuccess: () => {
+            console.log('Settings : Settings updated. Emit settings to arduino.');
             this.$socket.emit('setSettings', this.form);
           },
         });
