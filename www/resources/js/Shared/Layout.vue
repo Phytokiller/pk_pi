@@ -3,7 +3,7 @@
     <portal-target name="dropdown" slim />
     <div class="md:flex md:flex-col">
       <div class="md:h-screen md:flex md:flex-col">
-        <div class="md:flex md:flex-shrink-0">
+        <div class="md:flex md:flex-shrink-0" v-if="!running">
           <div class="bg-indigo-900 md:flex-shrink-0 md:w-56 px-6 py-4 flex items-center justify-between md:justify-center">
             <inertia-link class="mt-1 text-white" href="/">
               <logo class="fill-white inline-block"/> Station
