@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
   state () {
       return {
           palettes: [],
+          running: false,
       }
   },
 
@@ -15,6 +16,10 @@ export const store = new Vuex.Store({
 
     selected(state, palettes) {
       state.palettes = palettes
+    },
+
+    running(state, status) {
+      state.running = status
     }
 
   }

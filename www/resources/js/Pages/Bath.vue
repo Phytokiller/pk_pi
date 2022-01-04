@@ -61,6 +61,7 @@
       this.measures();
       this.initChart();
       this.$socket.emit('start', true);
+      this.$store.commit('running', true);
     },
 
     data() {
@@ -165,10 +166,17 @@
         this.counter = 0;
 
         // UPDATE BATH
-        if(this.bath)
-          this.form.put(route('baths.finish', this.bath.id));
+        if(this.bath) {
+          this.form.put(route('baths.finish', this.bath.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+              this.$socket.emit('stop', true);
+              this.$store.commit('running', false);
+            }
+          });
+        }
 
-        this.$socket.emit('stop', true);
+        //this.$socket.emit('stop', true);
 
       },
 
