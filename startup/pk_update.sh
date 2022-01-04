@@ -7,6 +7,8 @@ sudo chmod -R 777 /var/www/html/pk_pi/www/storage
 
 cd /var/www/html/pk_pi
 
+git reset --hard && git clean -df
+
 git pull origin master
 
 cd /var/www/html/pk_pi/www

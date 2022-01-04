@@ -136,6 +136,7 @@ export default {
       this.sockets.unsubscribe('boiler');
       this.sockets.unsubscribe('/syncFromManager');
       this.sockets.unsubscribe('/setSettings');
+      this.sockets.unsubscribe('settings');
 
     },
 
