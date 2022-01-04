@@ -153,9 +153,6 @@
 
       stop() {
 
-        // LOG
-        console.log('Bath stopped.');
-
         // STOP INTERVALS
         clearInterval(this.timerInterval);
         this.timerInterval = null;
@@ -172,7 +169,7 @@
             onSuccess: () => {
               this.$socket.emit('stop', true);
               this.$store.commit('running', false);
-              this.$destroy();
+              console.log('Bath stopped.');
             }
           });
         }
