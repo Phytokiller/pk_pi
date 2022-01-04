@@ -96,6 +96,7 @@ export default {
     Clock,
   },
 
+/*
   sockets:  {
     connect: function() {
       this.sockets.subscribe('/syncFromManager', (data) => {
@@ -106,9 +107,11 @@ export default {
       this.sockets.unsubscribe('/syncFromManager');
     }
   },
+*/
 
   methods: {
 
+/*
     synchronize(data) {
 
       console.log(data);
@@ -126,6 +129,7 @@ export default {
       });
 
     },
+*/
 
   }
   
