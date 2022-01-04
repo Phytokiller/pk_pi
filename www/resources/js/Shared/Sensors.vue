@@ -118,7 +118,7 @@ export default {
       this.sockets.subscribe('/syncFromManager', (data) => {
           this.synchronize(data);
       });
-
+/*
       this.sockets.subscribe('/setSettings', (data) => {
         this.bath_temperature = data.Tboiler;
       });
@@ -128,7 +128,7 @@ export default {
       });
 
       this.$socket.emit('getSettings', {getSettings: true});
-
+*/
     },
 
     stopListening() {
@@ -139,8 +139,8 @@ export default {
       this.sockets.unsubscribe('door');
       this.sockets.unsubscribe('boiler');
       this.sockets.unsubscribe('/syncFromManager');
-      this.sockets.unsubscribe('/setSettings');
-      this.sockets.unsubscribe('settings');
+      //this.sockets.unsubscribe('/setSettings');
+      //this.sockets.unsubscribe('settings');
 
     },
 
