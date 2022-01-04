@@ -172,6 +172,7 @@
             onSuccess: () => {
               this.$socket.emit('stop', true);
               this.$store.commit('running', false);
+              this.$destroy();
             }
           });
         }
