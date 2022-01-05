@@ -21,12 +21,12 @@ class WelcomeController extends Controller
             'palettes' => $this->pk->currentAccount()
                         ->palettes()
                         ->with('bath')
-                        ->orderBy('id')
+                        ->orderBy('created_at', 'desc')
                         ->paginate(1),
             'default' => $this->pk->currentAccount()
                         ->palettes()
                         ->whereDoesntHave('bath')
-                        ->orderBy('id')
+                        ->orderBy('created_at')
                         ->limit(2)
                         ->get(),
         ]);
