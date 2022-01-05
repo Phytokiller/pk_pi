@@ -67,7 +67,23 @@
     <div v-else class="flex flex-1 items-center justify-center">Aucune palette sélectionnée.</div>
 
     <div class="text-center" v-if="selected.length > 0">
-      <span class="text-sm animate-pulse">En attente du capteur de déclenchement...</span>
+      <div class="flex flex-col items-center justify-center">
+
+        <label for="mode" class="flex items-center cursor-pointer mr-4">
+          <div class="relative">
+            <input id="mode" type="checkbox" v-model="mode" class="sr-only" />
+            <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+            <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+          </div>
+          <div class="ml-3 text-gray-700 font-medium">
+            Mode automatique
+          </div>
+        </label>
+
+        <span v-if="mode" class="text-sm animate-pulse">En attente du capteur de déclenchement...</span>
+        <span v-else class="text-sm text-yellow-500">Mode automatique desactivé</span>
+      </div>
+
       <button type="button" @click="start" class="block w-full mt-6 border-t bg-green-400 border-green-600 text-white font-bold px-4 py-6 text-4xl uppercase tracking-wider focus:outline-none hover:bg-blue-2000"> Démarrage manuel</button>
     </div>
 
@@ -95,6 +111,7 @@
     data() {
       return {
         selected: this.default,
+        mode: true,
       }
     },
 
@@ -103,11 +120,17 @@
       // If none selected get default palettes
       this.selected = (this.$store.state.palettes.length >= 1) ? this.$store.state.palettes : this.default;
 
-      this.sockets.subscribe('door', (data) => {
-          this.door = data.door;
-          if(this.door && this.selected.length > 0) this.start();
-      });
+      this.listen();
 
+    },
+
+    watch: {
+      mode: function (newMode, oldMode) {
+        if(newMode)
+          this.listen();
+        else
+          this.stopListening();
+      }
     },
 
     methods: {
@@ -127,7 +150,30 @@
         form.post(route('baths.store'));
       },
 
+      listen() {
+        console.log('Welcome : Start listening from door.')
+        this.sockets.subscribe('door', (data) => {
+            this.door = data.door;
+            if(this.door && this.selected.length > 0) this.start();
+        });
+      },
+
+      stopListening() {
+        console.log('Welcome : Stop listening from door.')
+        this.sockets.unsubscribe('door');
+      },
+
     }
 
   }
 </script>
+
+
+<style scoped>
+
+  input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #48bb78;
+  }
+
+</style>
