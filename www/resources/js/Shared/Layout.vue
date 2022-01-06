@@ -51,6 +51,8 @@
                 </div>
               </dropdown>
 
+              <span v-else class="font-semibold text-lg">{{ $page.props.user.name }}</span>
+
             </div>
 
           </div>
