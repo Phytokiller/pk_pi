@@ -22,7 +22,7 @@ class Palette extends Model
 
     public function bath()
     {
-        return $this->baths()->whereNotNull('finished_at')->orderBy('finished_at', 'desc');
+        return $this->baths()->whereNull('deleted_at')->whereNotNull('finished_at')->orderBy('finished_at', 'desc');
     }
 
 }

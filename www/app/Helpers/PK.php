@@ -75,7 +75,7 @@ class PK {
     // Get the next bath number
     public function nextBathNumber()
     {
-        $latest = $this->currentAccount()->baths()->orderBy('created_at', 'desc')->select('number')->first();
+        $latest = $this->currentAccount()->baths()->withTrashed()->orderBy('created_at', 'desc')->select('number')->first();
 
         if($latest) {
             $array = explode('-', $latest->number);

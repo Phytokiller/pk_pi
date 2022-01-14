@@ -62,12 +62,30 @@ class AccountController extends Controller
         );
 
         // Update Baths from manager (deleted, etc)
+        foreach ($request->baths as $input) {
+            
+            $bath = Bath::find($input['id']);
+            if($bath) {
+                $bath->user_id = $input['user_id'];
+                $bath->number = $input['number'];
+                $bath->finished_at = $input['finished_at'];
+                $bath->created_at = $input['created_at'];
+                $bath->updated_at = $input['updated_at'];
+                $bath->deleted_at = $input['deleted_at'];
+                $bath->update();
+            }
+        }
+
+        // Update Baths from manager (deleted, etc)
+        /*
         Bath::upsert($request->baths, 
             ['id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
         );
+        */
 
         // Return the local baths
         return response()->json($this->pk->currentAccount()->baths()
+                                    ->where('created_at', '>', Carbon::now()->submonths(2))
                                     ->whereHas('measures')
                                     ->whereHas('palettes')
                                     ->with('measures', 'palettes')

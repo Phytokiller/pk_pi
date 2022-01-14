@@ -36,7 +36,9 @@ class WelcomeController extends Controller
         return Inertia::render('Welcome', [
             'palettes' => $this->pk->currentAccount()
                         ->palettes()
-                        ->with('bath')
+                        ->with('bath', function($query) {
+                            $query->whereNull('deleted_at');
+                        })
                         ->latest()
                         ->paginate(1),
             'default' => $this->pk->currentAccount()

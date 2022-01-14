@@ -42,6 +42,8 @@ class BathController extends Controller
             'account_id' => $this->pk->currentAccount()->id,
             'user_id' => $this->pk->currentUser()->id,
             'number' => $this->pk->nextBathNumber(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         $bath->palettes()->attach($ids);

@@ -24,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Carbon::setLocale('fr');
-        setlocale (LC_TIME, 'fr_FR.utf8','fra');
+        //
     }
 }

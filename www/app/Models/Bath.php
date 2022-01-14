@@ -14,15 +14,23 @@ class Bath extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['account_id', 'user_id', 'number', 'finished_at'];
+    public $timestamps = false;
+
+    protected $fillable = ['account_id', 'user_id', 'number', 'finished_at', 'created_at', 'updated_at'];
 
     protected $appends = ['created_at_formated'];
 
-    protected $dates = ['finished_at'];
+    //protected $dates = ['created_at', 'updated_at', 'finished_at'];
+
+    protected $casts = [
+        'created_at' => 'date:Y-m-d\TH:i',
+        'updated_at' => 'date:Y-m-d\TH:i',
+        'finished_at' => 'date:Y-m-d\TH:i',
+    ];
 
     public function getCreatedAtFormatedAttribute()
     {
-        return $this->created_at->format('d/m/Y à H:i');
+        return Carbon::parse($this->created_at)->format('d/m/Y à H:i');
     }
 
     public function account()
