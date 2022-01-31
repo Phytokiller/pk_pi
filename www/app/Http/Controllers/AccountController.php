@@ -62,6 +62,7 @@ class AccountController extends Controller
         );
 
         // Update Baths from manager (deleted, etc)
+        /*
         foreach ($request->baths as $input) {
             
             $bath = Bath::find($input['id']);
@@ -75,11 +76,42 @@ class AccountController extends Controller
                 $bath->update();
             }
         }
+        */
+
+        // Update Baths and Bath Palettes from manager (deleted, etc)
+        // Since we can modify palettes on baths with the manage, we should sync bath_palette too
+        if($request->baths) {
+
+            $baths = collect($request->baths);
+
+            $baths->each(function($item, $key) {
+
+                $bath = Bath::updateOrCreate([
+                    'id' => $item['id'],
+                    'account_id' => $item['account_id'],
+                ], [
+                    'number' => $item['number'],
+                    'user_id' => $item['user_id'],
+                    'finished_at' => $item['finished_at'],
+                    'created_at' => $item['created_at'],
+                    'updated_at' => $item['updated_at'],
+                    'deleted_at' => $item['deleted_at'],
+                ]);
+
+                // BathPalette
+                if(isset($item['palettes'])) {
+                    $palettes = collect($item['palettes'])->pluck('id');
+                    $bath->palettes()->sync($palettes);
+                }
+
+            });
+        }
+
 
         // Update Baths from manager (deleted, etc)
         /*
         Bath::upsert($request->baths, 
-            ['id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
+            ['id', 'account_id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
         );
         */
 

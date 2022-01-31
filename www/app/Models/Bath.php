@@ -16,7 +16,7 @@ class Bath extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['account_id', 'user_id', 'number', 'finished_at', 'created_at', 'updated_at'];
+    protected $fillable = ['account_id', 'user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at'];
 
     protected $appends = ['created_at_formated'];
 
