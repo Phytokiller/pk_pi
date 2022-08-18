@@ -23,7 +23,8 @@ class WelcomeController extends Controller
             $lastPage = $this->pk->currentAccount()
                         ->palettes()
                         ->with('bath')
-                        ->latest()
+                        ->orderBy('counter', 'DESC')
+                        ->orderBy('created_at', 'DESC')
                         ->paginate(1)
                         ->lastPage();
 
@@ -39,13 +40,15 @@ class WelcomeController extends Controller
                         ->with('bath', function($query) {
                             $query->whereNull('deleted_at');
                         })
-                        ->latest()
+                        ->orderBy('counter', 'ASC')
+                        ->orderBy('created_at', 'ASC')
                         ->paginate(1),
             'default' => $this->pk->currentAccount()
                         ->palettes()
                         ->whereDoesntHave('bath')
+                        ->orderBy('counter', 'ASC')
                         ->orderBy('created_at', 'ASC')
-                        ->limit(2)
+                        ->limit($this->pk->currentAccount()->default_palettes_selected)
                         ->get(),
         ]);
 

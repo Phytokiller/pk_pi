@@ -30,6 +30,7 @@ class AccountController extends Controller
             'bath_duration' => $request->account['bath_duration'],
             'bath_temperature' => $request->account['bath_temperature'],
             'bath_number_prefix' => $request->account['bath_number_prefix'],
+            'default_palettes_selected' => $request->account['default_palettes_selected'],
             'updated_at' => Carbon::now(),
         ]);
 
