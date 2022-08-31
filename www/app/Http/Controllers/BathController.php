@@ -48,6 +48,11 @@ class BathController extends Controller
 
         $bath->palettes()->attach($ids);
 
+        // Incrementing bath counter
+        $this->pk->currentAccount()->update([
+            'bath_counter' => ++$this->pk->currentAccount()->bath_counter,
+        ]);
+
         return Inertia::render('Bath', [
             'bath' => $bath,
             'palettes' => $bath->palettes,

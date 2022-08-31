@@ -118,13 +118,15 @@ class AccountController extends Controller
         */
 
         // Return the local baths
-        return response()->json($this->pk->currentAccount()->baths()
+        return response()->json([
+            'counter' => $this->pk->currentAccount()->bath_counter,
+            'items' => $this->pk->currentAccount()->baths()
                                     ->where('created_at', '>', Carbon::now()->submonths(2))
                                     ->whereHas('measures')
                                     ->whereHas('palettes')
                                     ->with('measures', 'palettes')
                                     ->get()
-                                );
+                                ]);
     }
 
     /**
