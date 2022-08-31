@@ -17,6 +17,7 @@ class Account extends Model
         'bath_temperature',
         'bath_number_prefix',
         'default_palettes_selected',
+        'bath_counter',
         'updated_at',
     ];
 

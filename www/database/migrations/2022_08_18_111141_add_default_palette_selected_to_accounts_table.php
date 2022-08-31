@@ -15,6 +15,7 @@ class AddDefaultPaletteSelectedToAccountsTable extends Migration
     {
         Schema::table('accounts', function (Blueprint $table) {
             $table->integer('default_palettes_selected')->default(2);
+            $table->integer('bath_counter')->default(0);
         });
     }
 
@@ -27,6 +28,7 @@ class AddDefaultPaletteSelectedToAccountsTable extends Migration
     {
         Schema::table('accounts', function (Blueprint $table) {
             $table->dropColumn('default_palettes_selected');
+            $table->dropColumn('bath_counter');
         });
     }
 }
