@@ -1,14 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PaletteController;
 use App\Http\Controllers\BathController;
+use App\Http\Controllers\PaletteController;
 use App\Http\Controllers\SettingController;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +18,6 @@ use App\Http\Controllers\SettingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/noaccount', [WelcomeController::class, 'noaccount'])->name('noaccount');

@@ -2,49 +2,45 @@
 
 namespace App\Helpers;
 
-use App\Models\Setting;
 use App\Models\Account;
+use App\Models\Setting;
 use App\Models\User;
 
-class PK {
-
-
-	protected $apiUrl;
+class PK
+{
+    protected $apiUrl;
 
     public $settings;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
         $this->settings = Setting::find(1);
         $this->apiUrl = env('PK_API_URL', 'manager.phytokiller.com');
-	}
-
+    }
 
     public function ping()
     {
-        if ( $connected = @fsockopen($this->apiUrl, 80) ) {
+        if ($connected = @fsockopen($this->apiUrl, 80)) {
             fclose($connected);
+
             return true;
         }
 
         return false;
-
     }
 
     public function currentAccount()
     {
-        if($this->settings->account_id) {
-
+        if ($this->settings->account_id) {
             return Account::find($this->settings->account_id);
-
         } else {
-
             $account = Account::first();
 
-            if($account) {
+            if ($account) {
                 $this->settings->account_id = $account->id;
                 $this->settings->user_id = $account->users()->first()->id;
                 $this->settings->update();
+
                 return $account;
             } else {
                 return abort(403);
@@ -54,29 +50,24 @@ class PK {
 
     public function currentUser()
     {
-        if($this->settings->user_id) {
-
+        if ($this->settings->user_id) {
             return User::find($this->settings->user_id);
-
         } else {
-
             $user = $this->currentAccount()->users()->first();
-            
-            if($user) {
+
+            if ($user) {
                 $this->settings->user_id = $user->id;
                 $this->settings->update();
             }
-             
-            return $user;
 
+            return $user;
         }
     }
 
     // Get the next bath number
     public function nextBathNumber()
     {
-
-        return $this->currentAccount()->bath_number_prefix . '-' . ++$this->currentAccount()->bath_counter;
+        return $this->currentAccount()->bath_number_prefix.'-'.++$this->currentAccount()->bath_counter;
 
         // $latest = $this->currentAccount()->baths()->withTrashed()->orderBy('created_at', 'desc')->select('number')->first();
 
@@ -91,7 +82,5 @@ class PK {
         // } else {
         //     return $this->currentAccount()->bath_number_prefix . '-001';
         // }
-
     }
-
 }

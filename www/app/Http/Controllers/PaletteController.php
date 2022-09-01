@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class PaletteController extends Controller
 {
-
     /**
      * Update the specified resource in storage.
      *
@@ -16,11 +15,9 @@ class PaletteController extends Controller
      */
     public function update(Request $request)
     {
-
-        return Palette::upsert($request->palettes, 
+        return Palette::upsert($request->palettes,
             ['id'], ['account_id', 'number', 'created_at', 'updated_at', 'deleted_at']
         );
-
     }
 
     public function start()
@@ -41,5 +38,4 @@ class PaletteController extends Controller
     {
         return $this->pk->currentAccount()->palettes()->where('id', '<', $palette->id)->orderBy('id', 'desc')->first();
     }
-
 }

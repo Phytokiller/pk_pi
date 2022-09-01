@@ -37,7 +37,7 @@ class PingRemote extends Command
      */
     public function handle()
     {
-        exec("ping -c 2 http://pk_manager.test", $output, $status);
+        exec('ping -c 2 http://pk_manager.test', $output, $status);
         var_dump($status);
     }
 }

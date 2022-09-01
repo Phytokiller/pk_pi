@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Traits\Uuids;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class Bath extends Model
 {
@@ -16,7 +16,7 @@ class Bath extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['account_id', 'user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['account_id', 'user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at', 'counter'];
 
     protected $appends = ['created_at_formated'];
 
@@ -52,5 +52,4 @@ class Bath extends Model
     {
         return $this->hasMany(BathMeasure::class);
     }
-
 }

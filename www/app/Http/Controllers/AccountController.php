@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
-use App\Models\User;
-use App\Models\Palette;
 use App\Models\Bath;
-
+use App\Models\Palette;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-
     /**
      * Update the resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function synchronize(Request $request)
@@ -31,16 +29,14 @@ class AccountController extends Controller
             'bath_temperature' => $request->account['bath_temperature'],
             'bath_number_prefix' => $request->account['bath_number_prefix'],
             'default_palettes_selected' => $request->account['default_palettes_selected'],
-            'bath_counter' => $request->account['bath_counter'],
+            'bath_counter' => ($request->account['bath_counter'] >= $this->pk->currentAccount()->bath_counter) ? $request->account['bath_counter'] : $this->pk->currentAccount()->bath_counter,
             'updated_at' => Carbon::now(),
         ]);
-
 
         // Update Users from manager
         $ids = [];
 
-        foreach($request->account['users'] as $user) {
-
+        foreach ($request->account['users'] as $user) {
             User::updateOrCreate([
                 'id' => $user['id'],
             ], [
@@ -49,7 +45,6 @@ class AccountController extends Controller
             ]);
 
             $ids[] = $user['id'];
-
         }
 
         $account->users()->sync($ids);
@@ -59,14 +54,14 @@ class AccountController extends Controller
         $this->settings->update();
 
         // Upsert palettes from manager
-        Palette::upsert($request->palettes, 
+        Palette::upsert($request->palettes,
             ['id'], ['account_id', 'number', 'created_at', 'updated_at', 'deleted_at']
         );
 
         // Update Baths from manager (deleted, etc)
         /*
         foreach ($request->baths as $input) {
-            
+
             $bath = Bath::find($input['id']);
             if($bath) {
                 $bath->user_id = $input['user_id'];
@@ -82,12 +77,10 @@ class AccountController extends Controller
 
         // Update Baths and Bath Palettes from manager (deleted, etc)
         // Since we can modify palettes on baths with the manage, we should sync bath_palette too
-        if($request->baths) {
-
+        if ($request->baths) {
             $baths = collect($request->baths);
 
-            $baths->each(function($item, $key) {
-
+            $baths->each(function ($item, $key) {
                 $bath = Bath::updateOrCreate([
                     'id' => $item['id'],
                     'account_id' => $item['account_id'],
@@ -101,18 +94,16 @@ class AccountController extends Controller
                 ]);
 
                 // BathPalette
-                if(isset($item['palettes'])) {
+                if (isset($item['palettes'])) {
                     $palettes = collect($item['palettes'])->pluck('id');
                     $bath->palettes()->sync($palettes);
                 }
-
             });
         }
 
-
         // Update Baths from manager (deleted, etc)
         /*
-        Bath::upsert($request->baths, 
+        Bath::upsert($request->baths,
             ['id', 'account_id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
         );
         */
@@ -122,22 +113,21 @@ class AccountController extends Controller
             'counter' => $this->pk->currentAccount()->bath_counter,
             'items' => $this->pk->currentAccount()->baths()
                                     ->where('created_at', '>', Carbon::now()->submonths(2))
-                                    ->whereHas('measures')
+                                    //->whereHas('measures')
                                     ->whereHas('palettes')
                                     ->with('measures', 'palettes')
-                                    ->get()
-                                ]);
+                                    ->get(),
+        ]);
     }
 
     /**
      * Update the resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-
         $account = Account::updateOrCreate([
             'id' => $request->id,
         ], [
@@ -150,8 +140,7 @@ class AccountController extends Controller
 
         $ids = [];
 
-        foreach($request->users as $user) {
-
+        foreach ($request->users as $user) {
             User::updateOrCreate([
                 'id' => $user['id'],
             ], [
@@ -160,7 +149,6 @@ class AccountController extends Controller
             ]);
 
             $ids[] = $user['id'];
-
         }
 
         $account->users()->sync($ids);
@@ -169,18 +157,16 @@ class AccountController extends Controller
         $this->settings->user_id = $account->users()->first()->id;
         $this->settings->update();
 
-
         return $account;
     }
 
     public function switch($id)
     {
-
         $account = Account::find($id);
         $this->settings->account_id = $account->id;
         $this->settings->user_id = $account->users()->first()->id;
         $this->settings->update();
-        return redirect()->back();
 
+        return redirect()->back();
     }
 }

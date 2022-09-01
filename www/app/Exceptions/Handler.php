@@ -3,8 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
 use Inertia\Inertia;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -50,15 +50,14 @@ class Handler extends ExceptionHandler
     {
         $response = parent::render($request, $e);
 
-        if (!app()->environment(['local', 'testing']) && in_array($response->status(), [500, 503, 404, 419])) {
+        if (! app()->environment(['local', 'testing']) && in_array($response->status(), [500, 503, 404, 419])) {
             return Inertia::render('Error', ['status' => $response->status()])
                 ->toResponse($request)
                 ->setStatusCode($response->status());
-        } else if ($response->status() === 403) {
+        } elseif ($response->status() === 403) {
             return Inertia::render('NoAccount');
         }
 
         return $response;
     }
-
 }

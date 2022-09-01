@@ -19,17 +19,18 @@ class User extends Model
      * @var string[]
      */
     protected $fillable = [
-        'id', 'account_id', 'first_name', 'last_name', 'created_at', 'updated_at', 'deleted_at'
+        'id', 'account_id', 'first_name', 'last_name', 'created_at', 'updated_at', 'deleted_at',
     ];
 
     protected $appends = ['name'];
 
     public function getNameAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->first_name.' '.$this->last_name;
     }
 
-    public function account() {
+    public function account()
+    {
         return $this->belongsToMany(Account::class);
     }
 }

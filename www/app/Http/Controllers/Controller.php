@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PK;
+use App\Models\Setting;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use App\Models\Setting;
-use App\Helpers\PK;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public $settings;
+
     public $pk;
 
     public function __construct()
@@ -21,5 +22,4 @@ class Controller extends BaseController
         $this->settings = Setting::find(1);
         $this->pk = new PK();
     }
-
 }

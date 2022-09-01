@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BathMeasure extends Model
 {
-
     use Uuids;
     use HasFactory;
 
@@ -18,5 +17,4 @@ class BathMeasure extends Model
     {
         return $this->belongsTo(Bath::class);
     }
-
 }

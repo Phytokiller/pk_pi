@@ -24,5 +24,4 @@ class Palette extends Model
     {
         return $this->baths()->whereNull('deleted_at')->whereNotNull('finished_at')->orderBy('finished_at', 'desc');
     }
-
 }
