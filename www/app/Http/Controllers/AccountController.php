@@ -19,10 +19,11 @@ class AccountController extends Controller
      */
     public function synchronize(Request $request)
     {
-        if($this->pk?->currentAccount()?->bath_counter) {
-            $counter = ($request->account['bath_counter'] >= $this->pk->currentAccount()->bath_counter) 
+        if(Account::where('id', $request->account['id'])->exists()) {
+            $account = Account::find($request->account['id']);
+            $counter = ($request->account['bath_counter'] >= $account?->bath_counter) 
                 ? $request->account['bath_counter'] 
-                : $this->pk->currentAccount()->bath_counter;
+                : $account->bath_counter;
         } else {
             $counter = $request->account['bath_counter'];
         }
