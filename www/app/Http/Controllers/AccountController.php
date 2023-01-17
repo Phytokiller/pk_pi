@@ -85,6 +85,7 @@ class AccountController extends Controller
                     'id' => $item['id'],
                     'account_id' => $item['account_id'],
                 ], [
+                    'counter' => $item['counter'],
                     'number' => $item['number'],
                     'user_id' => $item['user_id'],
                     'finished_at' => $item['finished_at'],
