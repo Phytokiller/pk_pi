@@ -20,6 +20,8 @@ class AccountController extends Controller
     public function synchronize(Request $request)
     {
 
+        dd('test');
+
         // Update account data from manager
         $account = Account::updateOrCreate([
             'id' => $request->account['id'],
@@ -108,6 +110,8 @@ class AccountController extends Controller
             ['id', 'account_id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
         );
         */
+
+        dd('test');
 
         // Return the local baths
         return response()->json([
