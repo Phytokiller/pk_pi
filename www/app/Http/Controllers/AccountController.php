@@ -19,8 +19,15 @@ class AccountController extends Controller
      */
     public function synchronize(Request $request)
     {
+        if($this->pk?->currentAccount()?->bath_counter) {
+            $counter = ($request->account['bath_counter'] >= $this->pk->currentAccount()->bath_counter) 
+                ? $request->account['bath_counter'] 
+                : $this->pk->currentAccount()->bath_counter;
+        } else {
+            $counter = $request->account['bath_counter'];
+        }
 
-        return response()->json(true);
+        return reponse()->json($counter);
 
         // Update account data from manager
         $account = Account::updateOrCreate([
