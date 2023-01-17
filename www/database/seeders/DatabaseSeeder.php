@@ -15,10 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\Account::create([
-            'name' => 'PK'
-        ]);
-
         \App\Models\Setting::create([
 
         ]);
