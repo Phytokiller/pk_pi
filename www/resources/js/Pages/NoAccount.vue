@@ -58,11 +58,13 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
         .then(data => {
           console.log(data);
           this.$socket.emit('syncFromDevice', data);
           window.location.href = "/";
+        })
+        .catch((error) => {
+          console.error('Error:', error);
         });
 
       },
