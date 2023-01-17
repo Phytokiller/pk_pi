@@ -20,7 +20,7 @@ class AccountController extends Controller
     public function synchronize(Request $request)
     {
 
-        dd('test');
+        return response()->json(true);
 
         // Update account data from manager
         $account = Account::updateOrCreate([
