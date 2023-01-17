@@ -61,7 +61,7 @@
         .then(data => {
           console.log(data);
           this.$socket.emit('syncFromDevice', data);
-          window.location.href = "/";
+          //window.location.href = "/";
         })
         .catch((error) => {
           console.error('Error:', error);
