@@ -28,7 +28,7 @@ class AccountController extends Controller
             $counter = $request->account['bath_counter'];
         }
 
-        return reponse()->json($counter);
+        return response()->json($counter);
 
         // Update account data from manager
         $account = Account::updateOrCreate([
@@ -118,8 +118,6 @@ class AccountController extends Controller
             ['id', 'account_id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
         );
         */
-
-        dd('test');
 
         // Return the local baths
         return response()->json([
