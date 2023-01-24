@@ -78,7 +78,7 @@ class BathController extends Controller
     public function update(Request $request)
     {
         return Bath::upsert($request->baths,
-            ['id'], ['user_id', 'number', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
+            ['id'], ['user_id', 'number', 'counter', 'finished_at', 'created_at', 'updated_at', 'deleted_at']
         );
     }
 
